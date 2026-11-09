@@ -64,3 +64,4 @@ foreach ($pages as $key => $p) {
 }
 
 echo "Joomla sync complete!\n";
+

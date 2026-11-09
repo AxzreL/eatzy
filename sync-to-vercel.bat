@@ -41,3 +41,4 @@ echo   --^> https://eatzy-virid.vercel.app/
 echo ==========================================================
 echo.
 pause
+
