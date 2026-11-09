@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <title>EATZY — Crave. Click. Chow. | Michelin Street-Tech Fast-Casual</title>
+    <meta name="description" content="Direct-to-diner fast-casual ordering and instant table reservations in Metro Manila. GCash & Maya supported.">
+    
+    <!-- Preconnect & Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Flaticon UIcons (Bold Rounded & All Styles) -->
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/2.6.0/uicons-bold-rounded/css/uicons-bold-rounded.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@flaticon/flaticon-uicons@3.3.1/css/all/all.min.css">
+
+    <!-- EATZY CSS -->
+    <link rel="stylesheet" href="components/com_eatzy/assets/css/eatzy.css?v=2.6.1">
+
+    <style>
+        /* Sticky Cyber Navigation */
+        .eatzy-site-nav {
+            position: sticky;
+            top: 0;
+            background: rgba(10, 11, 16, 0.88);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            z-index: 800;
+            padding: 12px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .eatzy-nav-inner {
+            max-width: 1240px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .eatzy-brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: -0.8px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .eatzy-brand-logo span {
+            color: var(--eatzy-primary);
+        }
+
+        .eatzy-brand-badge {
+            font-size: 9px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #d0d4e0;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-left: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .eatzy-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .eatzy-nav-link {
+            color: var(--eatzy-text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border-radius: 8px;
+        }
+
+        .eatzy-nav-link:hover, .eatzy-nav-link.active {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .eatzy-nav-cart-btn {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 8px 16px;
+            border-radius: var(--eatzy-radius-pill);
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .eatzy-nav-cart-btn:hover {
+            background: var(--eatzy-primary-gradient);
+            border-color: var(--eatzy-primary);
+            box-shadow: 0 4px 18px rgba(255, 69, 0, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .eatzy-cart-counter {
+            background: var(--eatzy-primary);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 900;
+            padding: 2px 7px;
+            border-radius: var(--eatzy-radius-pill);
+        }
+
+        .eatzy-main-content {
+            flex-grow: 1;
+        }
+
+        /* Mobile Top Header Bag Button */
+        .eatzy-mobile-top-cart-btn {
+            display: none;
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            padding: 7px 12px;
+            border-radius: var(--eatzy-radius-pill);
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .eatzy-mobile-top-cart-btn:hover {
+            background: rgba(255, 255, 255, 0.14);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Mobile Bottom Thumb-Zone Navigation Bar */
+        .eatzy-mobile-bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 11, 16, 0.96);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.6);
+            padding: 6px 12px calc(6px + env(safe-area-inset-bottom, 0px)) 12px;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .eatzy-bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            text-decoration: none;
+            background: none;
+            border: none;
+            color: #888ea0;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 6px 10px;
+            border-radius: 10px;
+            min-width: 58px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .eatzy-bottom-nav-item i {
+            font-size: 18px;
+            line-height: 1;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .eatzy-bottom-nav-item.active {
+            color: #ffffff;
+        }
+
+        .eatzy-bottom-nav-item.active i {
+            color: var(--eatzy-primary);
+            transform: translateY(-1px);
+        }
+
+        .eatzy-bottom-nav-item:active {
+            transform: scale(0.92);
+        }
+
+        .eatzy-bottom-cart-wrap {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .eatzy-bottom-cart-wrap .eatzy-cart-counter {
+            position: absolute;
+            top: -6px;
+            right: -10px;
+            font-size: 9px;
+            min-width: 16px;
+            height: 16px;
+            padding: 0 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+        }
+
+        /* Luxury Footer */
+        .eatzy-site-footer {
+            background: #090a0e;
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+            padding: 50px 20px 30px 20px;
+            margin-top: 80px;
+            font-size: 13px;
+            color: #7b8092;
+            position: relative;
+            z-index: 2;
+        }
+
+        .eatzy-footer-inner {
+            max-width: 1240px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 36px;
+            margin-bottom: 36px;
+        }
+
+        .eatzy-footer-col h4 {
+            color: #fff;
+            margin: 0 0 16px 0;
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .eatzy-footer-col p {
+            margin: 0 0 8px 0;
+            line-height: 1.6;
+        }
+
+        .eatzy-footer-bottom {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            font-size: 12px;
+        }
+
+        /* Responsive Breakpoints for Mobile Top Nav and Bottom Navigation */
+        @media (max-width: 768px) {
+            body {
+                padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px));
+            }
+
+            .eatzy-nav-links {
+                display: none !important;
+            }
+
+            .eatzy-mobile-top-cart-btn {
+                display: inline-flex !important;
+            }
+
+            .eatzy-mobile-bottom-nav {
+                display: flex !important;
+            }
+
+            .eatzy-site-nav {
+                padding: 10px 14px;
+            }
+
+            .eatzy-brand-logo {
+                font-size: 18px;
+            }
+
+            .eatzy-brand-badge {
+                font-size: 8px;
+                padding: 2px 5px;
+            }
+
+            .eatzy-site-footer {
+                padding: 36px 16px calc(40px + env(safe-area-inset-bottom, 0px)) 16px;
+                margin-top: 40px;
+            }
+
+            .eatzy-footer-inner {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .eatzy-footer-bottom {
+                flex-direction: column;
+                text-align: center;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sticky Navigation (Section 05 Mockup: [EATZY LOGO] [MENU] [CART]) -->
+    <nav class="eatzy-site-nav">
+        <div class="eatzy-nav-inner">
+            <a href="/EATZY/index.php/component/eatzy?view=menu" class="eatzy-brand-logo">
+                <i class="fi fi-br-utensils" style="font-size:18px; margin-right:4px; color:var(--eatzy-primary);"></i>
+                EATZY<span>.PH</span>
+                <span class="eatzy-brand-badge">BISTRO TECH</span>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <div class="eatzy-nav-links">
+                <a href="/EATZY/index.php/component/eatzy?view=menu" class="eatzy-nav-link active">
+                    <i class="fi fi-br-hamburger"></i> <span>Menu</span>
+                </a>
+                <a href="/EATZY/index.php/component/eatzy?view=book" class="eatzy-nav-link ">
+                    <i class="fi fi-br-calendar"></i> <span>Book Table</span>
+                </a>
+                <a href="/EATZY/index.php/component/eatzy?view=track" class="eatzy-nav-link ">
+                    <i class="fi fi-br-moped"></i> <span>Track Order</span>
+                </a>
+                <a href="/EATZY/administrator/index.php?option=com_eatzy&view=kds" class="eatzy-nav-link" target="_blank">
+                    <i class="fi fi-br-hat-chef"></i> <span>Kitchen Display</span>
+                </a>
+                <button class="eatzy-nav-cart-btn" onclick="EatzyApp.toggleCart(true)" aria-label="Open Cart">
+                    <i class="fi fi-br-shopping-bag"></i>
+                    <span id="eatzy-nav-cart-badge" class="eatzy-cart-counter">0</span>
+                </button>
+            </div>
+
+            <!-- Mobile Top Header Quick Bag -->
+            <button class="eatzy-mobile-top-cart-btn" onclick="EatzyApp.toggleCart(true)" aria-label="Open Cart">
+                <i class="fi fi-br-shopping-bag"></i>
+                <span id="eatzy-mobile-top-cart-badge" class="eatzy-cart-counter">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Component Render -->
+    <main class="eatzy-main-content">
+        <div id="system-message-container" aria-live="polite"></div>
+
+        
+<div class="eatzy-app-container">
+    <!-- Live Kitchen Pulse Pill -->
+    <div class="eatzy-kitchen-pulse-bar">
+        <div class="eatzy-pulse-left">
+            <span class="eatzy-pulse-dot"></span>
+            <span>KITCHEN LIVE &bull; BGC FLAGSHIP</span>
+        </div>
+        <div class="eatzy-pulse-right">
+            <span><i class="fi fi-br-bolt" style="margin-right:4px;"></i> Avg Prep: <strong>14 Mins</strong> &bull; <i class="fi fi-br-clock" style="margin-right:4px; margin-left:4px;"></i> Est Delivery: <strong>25 Mins</strong></span>
+        </div>
+    </div>
+
+    <!-- Hero Banner: Cyber-Bistro Showcase (Section 01, 05, 06) -->
+    <header class="eatzy-hero-banner">
+        <div class="eatzy-hero-left">
+            <div class="eatzy-badge-strip">
+                <span class="eatzy-pill">Direct Food Tech</span>
+                <span class="eatzy-pill">Commission-Free</span>
+                <span class="eatzy-pill">&lt; 90s Checkout Target</span>
+            </div>
+            <h1 class="eatzy-hero-title">
+                CRAVE. CLICK. <span>CHOW.</span>
+            </h1>
+            <p class="eatzy-hero-sub">
+                Eliminating third-party aggregator markups with chef-driven fast-casual dining, direct lightning delivery, and friction-free table reservations.
+            </p>
+            
+            <div class="eatzy-hero-ctas">
+                <a href="#eatzy-menu-section" class="eatzy-btn eatzy-btn-primary">
+                    <i class="fi fi-br-utensils"></i> <span>ORDER ONLINE NOW</span>
+                </a>
+                <a href="/EATZY/index.php/component/eatzy?view=book" class="eatzy-btn eatzy-btn-outline">
+                    <i class="fi fi-br-calendar"></i> <span>RESERVE A TABLE</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Hero Showcase Card (Right Column) -->
+                    <div class="eatzy-hero-showcase">
+                <div class="eatzy-showcase-card">
+                    <div class="eatzy-showcase-img-wrap">
+                                                <img src="images/foods/Burgers-Truffle-Burger-scaled.jpg" 
+                             alt="Smoked Angus Truffle Burger" 
+                             class="eatzy-showcase-img" 
+                             loading="eager"
+                             referrerpolicy="no-referrer"
+                             onerror="this.onerror=null; this.src='images/foods/Burgers-Truffle-Burger-scaled.jpg';">
+                        <div class="eatzy-showcase-overlay"></div>
+                        <span class="eatzy-dish-badge eatzy-badge-special"><i class="fi fi-br-flame" style="margin-right:4px;"></i> TODAY'S SIGNATURE</span>
+                    </div>
+                    <div class="eatzy-showcase-body">
+                        <div class="eatzy-showcase-meta">
+                            <h3 class="eatzy-showcase-title">Smoked Angus Truffle Burger</h3>
+                            <span class="eatzy-showcase-price">₱380.00</span>
+                        </div>
+                        <p style="font-size:12px; color:#888ea0; margin:0 0 12px 0;">Handcrafted brioche, sharp cheddar, black truffle aioli, wagyu-blend smoked patty.</p>
+                        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                            <div class="eatzy-showcase-stats">
+                                <span><i class="fi fi-br-star" style="margin-right:4px; color:#ffb703;"></i> 4.9 (420+ reviews)</span>
+                                <span>&bull; 18 ordered this hour</span>
+                            </div>
+                            <button class="eatzy-btn eatzy-btn-primary" style="padding:8px 18px; font-size:12px;" onclick="EatzyApp.addToCart(1, 'Smoked Angus Truffle Burger', 380)">
+                                <i class="fi fi-br-plus" style="margin-right:4px;"></i> Add &bull; ₱380.00                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </header>
+
+    <!-- Dining Mode Selector -->
+    <div class="eatzy-mode-tabs">
+        <button class="eatzy-mode-btn active" onclick="EatzyApp.setMode('delivery', this)">
+            <i class="fi fi-br-moped"></i> <span>Express Delivery</span>
+        </button>
+        <button class="eatzy-mode-btn" onclick="EatzyApp.setMode('pickup', this)">
+            <i class="fi fi-br-shopping-bag"></i> <span>Direct Takeout</span>
+        </button>
+        <a href="/EATZY/index.php/component/eatzy?view=book" class="eatzy-mode-btn" style="text-decoration:none;">
+            <i class="fi fi-br-calendar"></i> <span>Dine-In Table</span>
+        </a>
+    </div>
+
+    <!-- Menu Section -->
+    <section id="eatzy-menu-section" class="eatzy-menu-section">
+        <!-- Live Search & Category Pills -->
+        <div class="eatzy-controls-bar">
+            <div class="eatzy-search-box">
+                <i class="fi fi-br-search eatzy-search-icon"></i>
+                <input type="text" id="eatzy-search-input" placeholder="Search craft burgers, pasta, drinks, desserts..." oninput="EatzyApp.filterMenu()">
+            </div>
+            
+            <div class="eatzy-category-pills" id="eatzy-category-pills">
+                <button class="eatzy-cat-btn active" data-cat="all" onclick="EatzyApp.setCategory('all', this)">All Dishes (13)</button>
+                                    <button class="eatzy-cat-btn" data-cat="Mains" onclick="EatzyApp.setCategory('Mains', this)">
+                        Mains (5)
+                    </button>
+                                    <button class="eatzy-cat-btn" data-cat="Starters" onclick="EatzyApp.setCategory('Starters', this)">
+                        Starters (3)
+                    </button>
+                                    <button class="eatzy-cat-btn" data-cat="Drinks" onclick="EatzyApp.setCategory('Drinks', this)">
+                        Drinks (3)
+                    </button>
+                                    <button class="eatzy-cat-btn" data-cat="Desserts" onclick="EatzyApp.setCategory('Desserts', this)">
+                        Desserts (2)
+                    </button>
+                                <button class="eatzy-cat-btn" data-tag="Vegetarian" onclick="EatzyApp.setTag('Vegetarian', this)"><i class="fi fi-br-leaf" style="margin-right:4px;"></i> Vegetarian</button>
+                <button class="eatzy-cat-btn" data-tag="Special" onclick="EatzyApp.setTag('Special', this)"><i class="fi fi-br-flame" style="margin-right:4px;"></i> Today's Specials</button>
+            </div>
+        </div>
+
+        <!-- Menu Bento Grid (2-column on mobile, responsive desktop) -->
+        <div class="eatzy-menu-grid" id="eatzy-menu-grid">
+                            <div class="eatzy-card" 
+                     data-id="1"
+                     data-category="Mains"
+                     data-name="smoked angus truffle burger"
+                     data-tags="Chef Special"
+                     data-special="1">
+                    
+                    <div class="eatzy-card-media">
+                                                <img src="images/foods/Burgers-Truffle-Burger-scaled.jpg" 
+                             alt="Smoked Angus Truffle Burger" 
+                             class="eatzy-card-img" 
+                             loading="lazy"
+                             referrerpolicy="no-referrer"
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=80';">
+                        <div class="eatzy-card-overlay"></div>
+                        
+                                                    <span class="eatzy-dish-badge eatzy-badge-special"><i class="fi fi-br-flame" style="margin-right:3px;"></i> TODAY'S SPECIAL</span>
+                                                                            <span class="eatzy-dish-badge eatzy-badge-spice">🌶️</span>
+                                            </div>
+
+                    <div class="eatzy-card-body">
+                        <div class="eatzy-card-header">
+                            <h3 class="eatzy-dish-title">Smoked Angus Truffle Burger</h3>
+                            <span class="eatzy-dish-price">₱380.00</span>
+                        </div>
+                        <p class="eatzy-dish-desc">Handcrafted brioche, sharp cheddar, black truffle aioli, wagyu-blend smoked patty.</p>
+                        
+                                                    <div class="eatzy-dish-tags">
+                                                                    <span class="eatzy-tag">Chef Special</span>
+                                                            </div>
+                        
+                        <div class="eatzy-card-footer">
+                            <div id="eatzy-card-action-1">
+                                <button class="eatzy-add-btn" 
+                                        onclick="EatzyApp.addToCart(1, 'Smoked Angus Truffle Burger', 380)">
+                                    <i class="fi fi-br-plus" style="font-size:12px;"></i> <span>Add to Cart &bull; ₱380.00</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="eatzy-card" 
+                     data-id="2"
+                     data-category="Mains"
+                     data-name="double smash cheeseburger"
+                     data-tags=""
+                     data-special="0">
+                    
+                    <div class="eatzy-card-media">
+                                                <img src="images/foods/Double%20Smash%20Cheeseburger.jpg" 
+                             alt="Double Smash Cheeseburger" 
+                             class="eatzy-card-img" 
+                             loading="lazy"
+                             referrerpolicy="no-referrer"
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=80';">
+                        <div class="eatzy-card-overlay"></div>
+                        
+                                                                    </div>
+
+                    <div class="eatzy-card-body">
+                        <div class="eatzy-card-header">
+                            <h3 class="eatzy-dish-title">Double Smash Cheeseburger</h3>
+                            <span class="eatzy-dish-price">₱290.00</span>
+                        </div>
+                        <p class="eatzy-dish-desc">Crispy-edged twin smashed patties, double American cheese, caramelized onions, secret house relish.</p>
+                        
+                        
+                        <div class="eatzy-card-footer">
+                            <div id="eatzy-card-action-2">
+                                <button class="eatzy-add-btn" 
+                                        onclick="EatzyApp.addToCart(2, 'Double Smash Cheeseburger', 290)">
+                                    <i class="fi fi-br-plus" style="font-size:12px;"></i> <span>Add to Cart &bull; ₱290.00</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="eatzy-card" 
+                     data-id="3"
+                     data-category="Mains"
+                     data-name="creamy pesto fettuccine"
+                     data-tags="Vegetarian"
+                     data-special="0">
+                    
+                    <div class="eatzy-card-media">
+                                                <img src="images/foods/Creamy%20Pesto%20Fettuccine.jpg" 
+                             alt="Creamy Pesto Fettuccine" 
+                             class="eatzy-card-img" 
+                             loading="lazy"
+                             referrerpolicy="no-referrer"
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=80';">
+                        <div class="eatzy-card-overlay"></div>
+                        
+                                                                    </div>
+
+                    <div class="eatzy-card-body">
+                        <div class="eatzy-card-header">
+                            <h3 class="eatzy-dish-title">Creamy Pesto Fettuccine</h3>
+                            <span class="eatzy-dish-price">₱320.00</span>
+                        </div>
+                        <p class="eatzy-dish-desc">Hand-rolled fettuccine pasta, vibrant Genovese basil pesto, toasted pine nuts, aged parmigiano reggiano.</p>
+                        
+                                                    <div class="eatzy-dish-tags">
+                                                                    <span class="eatzy-tag">Vegetarian</span>
+                                                            </div>
+                        
+                        <div class="eatzy-card-footer">
+                            <div id="eatzy-card-action-3">
+                                <button class="eatzy-add-btn" 
+                                        onclick="EatzyApp.addToCart(3, 'Creamy Pesto Fettuccine', 320)">
+                                    <i class="fi fi-br-plus" style="font-size:12px;"></i> <span>Add to Cart &bull; ₱320.00</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="eatzy-card" 
+                     data-id="4"
+                     data-category="Mains"
+                     data-name="spicy garlic gambas bowl"
+                     data-tags="Gluten-Free"
+                     data-special="1">
+                    
+                    <div class="eatzy-card-media">
+                                                <img src="images/foods/Spicy%20Garlic%20Gambas%20Bowl.jpg" 
+                             alt="Spicy Garlic Gambas Bowl" 
+                             class="eatzy-card-img" 
+                             loading="lazy"
+                             referrerpolicy="no-referrer"
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=80';">
+                        <div class="eatzy-card-overlay"></div>
+                        
+                                                    <span class="eatzy-dish-badge eatzy-badge-special"><i class="fi fi-br-flame" style="margin-right:3px;"></i> TODAY'S SPECIAL</span>
+                                                                            <span class="eatzy-dish-badge eatzy-badge-spice">🌶️🌶️🌶️</span>
+                                            </div>
+
+                    <div class="eatzy-card-body">
+                        <div class="eatzy-card-header">
+                            <h3 class="eatzy-dish-title">Spicy Garlic Gambas Bowl</h3>
+                            <span class="eatzy-dish-price">₱390.00</span>
+                        </div>
+                        <p class="eatzy-dish-desc">Black tiger prawns pan-roasted in bird&#039;s eye chili, sweet roasted garlic, and Spanish olive oil over jasmine rice.</p>
+                        
+                                                    <div class="eatzy-dish-tags">
+                                                                    <span class="eatzy-tag">Gluten-Free</span>
+                                                            </div>
+                        
+                        <div class="eatzy-card-footer">
+                            <div id="eatzy-card-action-4">
+                                <button class="eatzy-add-btn" 
+                                        onclick="EatzyApp.addToCart(4, 'Spicy Garlic Gambas Bowl', 390)">
+                                    <i class="fi fi-br-plus" style="font-size:12px;"></i> <span>Add to Cart &bull; ₱390.00</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="eatzy-card" 
+                     data-id="5"
+                     data-category="Mains"
+                     data-name="crispy pork belly lechon bowl"
+                     data-tags=""
+                     data-special="0">
+                    
+                    <div class="eatzy-card-media">
+                                                <img src="images/foods/Crispy%20Pork%20Belly%20Lechon%20Bowl.jpg" 
+                             alt="Crispy Pork Belly Lechon Bowl" 
+                             class="eatzy-card-img" 
+                             loading="lazy"
+                             referrerpolicy="no-referrer"
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=80';">
+                        <div class="eatzy-card-overlay"></div>
+                        
+                                                                            <span class="eatzy-dish-badge eatzy-badge-spice">🌶️</span>
+                                            </div>
+
+                    <div class="eatzy-card-body">
+                        <div class="eatzy-card-header">
+                            <h3 class="eatzy-dish-title">Crispy Pork Belly Lechon Bowl</h3>
+                            <span class="eatzy-dish-price">₱340.00</span>
+                        </div>
+                        <p class="eatzy-dish-desc">24-hour slow-cooked pork belly with blistered crackling, spiced liver glaze, garlic rice, and house atchara.</p>
+                        
+                        
+                        <div class="eatzy-card-footer">
+                            <div id="eatzy-card-action-5">
+                                <button class="eatzy-add-btn" 
+                                        onclick="EatzyApp.addToCart(5, 'Crispy Pork Belly Lechon Bowl', 340)">
+                                    <i class="fi fi-br-plus" style="font-size:12px;"></i> <span>Add to Cart &bull; ₱340.00</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="eatzy-card" 
+                     data-id="6"
+                     data-category="Starters"
+                     data-name="loaded truffle parmesan fries"
+                     data-tags="Vegetarian"
+                     data-special="0">
+                    
+                    <div class="eatzy-card-media">
+                                                <img src="images/foods/Loaded%20Truffle%20Parmesan%20Fries.jpg" 
+                             alt="Loaded Truffle Parmesan Fries" 
+                             class="eatzy-card-img" 
+                             loading="lazy"
+                             referrerpolicy="no-referrer"
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=80';">
+                        <div class="eatzy-card-overlay"></div>
+                        
+                                                                    </div>
+
+                    <div class="eatzy-card-body">
+                        <div class="eatzy-card-header">
+                            <h3 class="eatzy-dish-title">Loaded Truffle Parmesan Fries</h3>
+                            <span class="eatzy-dish-price">₱210.00</span>
+                        </div>
+                        <p class="eatzy-dish-desc">Hand-cut russet fries tossed in white truffle essence, freshly shaved parmesan, sea salt, and fresh chives.</p>
+                        
+                                                    <div class="eatzy-dish-tags">
+                                                                    <span class="eatzy-tag">Vegetarian</span>
+                                                            </div>
+                        
+                        <div class="eatzy-card-footer">
+                            <div id="eatzy-card-action-6">
+                                <button class="eatzy-add-btn" 
+                                        onclick="EatzyApp.addToCart(6, 'Loaded Truffle Parmesan Fries', 210)">
+                                    <i class="fi fi-br-plus" style="font-size:12px;"></i> <span>Add to Cart &bull; ₱210.00</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="eatzy-card" 
+                     data-id="7"
+                     data-category="Starters"
+                     data-name="honey sriracha glazed wings"
+                     data-tags=""
+                     data-special="0">
+                    
+                    <div class="eatzy-card-media">
+                                                <img src="images/foods/Honey%20Sriracha%20Glazed%20Wings.jpg" 
+                             alt="Honey Sriracha Glazed Wings" 
+                             class="eatzy-card-img" 
+                             loading="lazy"
+                             referrerpolicy="no-referrer"
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=80';">
+                        <div class="eatzy-card-overlay"></div>
+                        
+                                                                            <span class="eatzy-dish-badge eatzy-badge-spice">🌶️🌶️</span>
+                                            </div>
+
+                    <div class="eatzy-card-body">
+                        <div class="eatzy-card-header">
+                            <h3 class="eatzy-dish-title">Honey Sriracha Glazed Wings</h3>
+                            <span class="eatzy-dish-price">₱260.00</span>
+                        </div>
+                        <p class="eatzy-dish-desc">Double-fried crisp chicken wings glazed in wild honey sriracha sauce with toasted white sesame.</p>
+                        
+                        
+                        <div class="eatzy-card-footer">
+                            <div id="eatzy-card-action-7">
+                                <button class="eatzy-add-btn" 
+                                        onclick="EatzyApp.addToCart(7, 'Honey Sriracha Glazed Wings', 260)">
+                                    <i class="fi fi-br-plus" style="font-size:12px;"></i> <span>Add to Cart &bull; ₱260.00</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="eatzy-card" 
+                     data-id="8"
+                     data-category="Starters"
+                     data-name="artisanal garlic sourdough"
+                     data-tags="Vegetarian"
+                     data-special="0">
+                    
+                    <div class="eatzy-card-media">
+                                                <img src="images/foods/Artisanal%20Garlic%20Sourdough.jpg" 
+                             alt="Artisanal Garlic Sourdough" 
+                             class="eatzy-card-img" 
+                             loading="lazy"
+                             referrerpolicy="no-referrer"
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=80';">
+                        <div class="eatzy-card-overlay"></div>
+                        
+                                                                    </div>
+
+                    <div class="eatzy-card-body">
+                        <div class="eatzy-card-header">
+                            <h3 class="eatzy-dish-title">Artisanal Garlic Sourdough</h3>
+                            <span class="eatzy-dish-price">₱170.00</span>
+                        </div>
+                        <p class="eatzy-dish-desc">Warm grilled levain sourdough slices brushed with roasted confit garlic, grass-fed butter, and parsley.</p>
+                        
+                                                    <div class="eatzy-dish-tags">
+                                                                    <span class="eatzy-tag">Vegetarian</span>
+                                                            </div>
+                        
+                        <div class="eatzy-card-footer">
+                            <div id="eatzy-card-action-8">
+                                <button class="eatzy-add-btn" 
+                                        onclick="EatzyApp.addToCart(8, 'Artisanal Garlic Sourdough', 170)">
+                                    <i class="fi fi-br-plus" style="font-size:12px;"></i> <span>Add to Cart &bull; ₱170.00</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="eatzy-card" 
+                     data-id="9"
+                     data-category="Drinks"
+                     data-name="calamansi honey sparkling spritzer"
+                     data-tags="Signature Drink"
+                     data-special="1">
+                    
+                    <div class="eatzy-card-media">
+                                                <img src="images/foods/Calamansi%20Honey%20Sparkling%20Spritzer.jpg" 
+                             alt="Calamansi Honey Sparkling Spritzer" 
+                             class="eatzy-card-img" 
+                             loading="lazy"
+                             referrerpolicy="no-referrer"
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=80';">
+                        <div class="eatzy-card-overlay"></div>
+                        
+                                                    <span class="eatzy-dish-badge eatzy-badge-special"><i class="fi fi-br-flame" style="margin-right:3px;"></i> TODAY'S SPECIAL</span>
+                                                                    </div>
+
+                    <div class="eatzy-card-body">
+                        <div class="eatzy-card-header">
+                            <h3 class="eatzy-dish-title">Calamansi Honey Sparkling Spritzer</h3>
+                            <span class="eatzy-dish-price">₱130.00</span>
+                        </div>
+                        <p class="eatzy-dish-desc">Freshly pressed Philippine calamansi, Palawan wild floral honey, and chilled sparkling club soda.</p>
+                        
+                                                    <div class="eatzy-dish-tags">
+                                                                    <span class="eatzy-tag">Signature Drink</span>
+                                                            </div>
+                        
+                        <div class="eatzy-card-footer">
+                            <div id="eatzy-card-action-9">
+                                <button class="eatzy-add-btn" 
+                                        onclick="EatzyApp.addToCart(9, 'Calamansi Honey Sparkling Spritzer', 130)">
+                                    <i class="fi fi-br-plus" style="font-size:12px;"></i> <span>Add to Cart &bull; ₱130.00</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="eatzy-card" 
+                     data-id="10"
+                     data-category="Drinks"
+                     data-name="cold brew barako latte"
+                     data-tags="Vegan Option"
+                     data-special="0">
+                    
+                    <div class="eatzy-card-media">
+                                                <img src="images/foods/Cold%20Brew%20Barako%20Latte.jpg" 
+                             alt="Cold Brew Barako Latte" 
+                             class="eatzy-card-img" 
+                             loading="lazy"
+                             referrerpolicy="no-referrer"
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=80';">
+                        <div class="eatzy-card-overlay"></div>
+                        
+                                                                    </div>
+
+                    <div class="eatzy-card-body">
+                        <div class="eatzy-card-header">
+                            <h3 class="eatzy-dish-title">Cold Brew Barako Latte</h3>
+                            <span class="eatzy-dish-price">₱150.00</span>
+                        </div>
+                        <p class="eatzy-dish-desc">16-hour steeped Batangas Liberica coffee, oat milk float, and light muscovado syrup.</p>
+                        
+                                                    <div class="eatzy-dish-tags">
+                                                                    <span class="eatzy-tag">Vegan Option</span>
+                                                            </div>
+                        
+                        <div class="eatzy-card-footer">
+                            <div id="eatzy-card-action-10">
+                                <button class="eatzy-add-btn" 
+                                        onclick="EatzyApp.addToCart(10, 'Cold Brew Barako Latte', 150)">
+                                    <i class="fi fi-br-plus" style="font-size:12px;"></i> <span>Add to Cart &bull; ₱150.00</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="eatzy-card" 
+                     data-id="11"
+                     data-category="Drinks"
+                     data-name="roselle hibiscus berry iced tea"
+                     data-tags="Gluten-Free"
+                     data-special="0">
+                    
+                    <div class="eatzy-card-media">
+                                                <img src="images/foods/Roselle%20Hibiscus%20Berry%20Iced%20Tea.jpg" 
+                             alt="Roselle Hibiscus Berry Iced Tea" 
+                             class="eatzy-card-img" 
+                             loading="lazy"
+                             referrerpolicy="no-referrer"
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=80';">
+                        <div class="eatzy-card-overlay"></div>
+                        
+                                                                    </div>
+
+                    <div class="eatzy-card-body">
+                        <div class="eatzy-card-header">
+                            <h3 class="eatzy-dish-title">Roselle Hibiscus Berry Iced Tea</h3>
+                            <span class="eatzy-dish-price">₱140.00</span>
+                        </div>
+                        <p class="eatzy-dish-desc">Artisan-brewed roselle hibiscus flowers, crushed strawberries, mint leaves, and cane syrup.</p>
+                        
+                                                    <div class="eatzy-dish-tags">
+                                                                    <span class="eatzy-tag">Gluten-Free</span>
+                                                            </div>
+                        
+                        <div class="eatzy-card-footer">
+                            <div id="eatzy-card-action-11">
+                                <button class="eatzy-add-btn" 
+                                        onclick="EatzyApp.addToCart(11, 'Roselle Hibiscus Berry Iced Tea', 140)">
+                                    <i class="fi fi-br-plus" style="font-size:12px;"></i> <span>Add to Cart &bull; ₱140.00</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="eatzy-card" 
+                     data-id="12"
+                     data-category="Desserts"
+                     data-name="ube halaya crème brûlée"
+                     data-tags="Chef Special"
+                     data-special="1">
+                    
+                    <div class="eatzy-card-media">
+                                                <img src="images/foods/Ube%20Halaya%20Cr%C3%A8me%20Br%C3%BBl%C3%A9e.jpg" 
+                             alt="Ube Halaya Crème Brûlée" 
+                             class="eatzy-card-img" 
+                             loading="lazy"
+                             referrerpolicy="no-referrer"
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=80';">
+                        <div class="eatzy-card-overlay"></div>
+                        
+                                                    <span class="eatzy-dish-badge eatzy-badge-special"><i class="fi fi-br-flame" style="margin-right:3px;"></i> TODAY'S SPECIAL</span>
+                                                                    </div>
+
+                    <div class="eatzy-card-body">
+                        <div class="eatzy-card-header">
+                            <h3 class="eatzy-dish-title">Ube Halaya Crème Brûlée</h3>
+                            <span class="eatzy-dish-price">₱220.00</span>
+                        </div>
+                        <p class="eatzy-dish-desc">Velvety purple yam custard topped with torched amber caramelized sugar crust and macapuno strings.</p>
+                        
+                                                    <div class="eatzy-dish-tags">
+                                                                    <span class="eatzy-tag">Chef Special</span>
+                                                            </div>
+                        
+                        <div class="eatzy-card-footer">
+                            <div id="eatzy-card-action-12">
+                                <button class="eatzy-add-btn" 
+                                        onclick="EatzyApp.addToCart(12, 'Ube Halaya Crème Brûlée', 220)">
+                                    <i class="fi fi-br-plus" style="font-size:12px;"></i> <span>Add to Cart &bull; ₱220.00</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="eatzy-card" 
+                     data-id="13"
+                     data-category="Desserts"
+                     data-name="molten valrhona chocolate cake"
+                     data-tags="Vegetarian"
+                     data-special="0">
+                    
+                    <div class="eatzy-card-media">
+                                                <img src="images/foods/Molten%20Valrhona%20Chocolate%20Cake.jpg" 
+                             alt="Molten Valrhona Chocolate Cake" 
+                             class="eatzy-card-img" 
+                             loading="lazy"
+                             referrerpolicy="no-referrer"
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=80';">
+                        <div class="eatzy-card-overlay"></div>
+                        
+                                                                    </div>
+
+                    <div class="eatzy-card-body">
+                        <div class="eatzy-card-header">
+                            <h3 class="eatzy-dish-title">Molten Valrhona Chocolate Cake</h3>
+                            <span class="eatzy-dish-price">₱250.00</span>
+                        </div>
+                        <p class="eatzy-dish-desc">Warm chocolate cake with decadent oozing center, served with vanilla bean gelato and Maldon flakes.</p>
+                        
+                                                    <div class="eatzy-dish-tags">
+                                                                    <span class="eatzy-tag">Vegetarian</span>
+                                                            </div>
+                        
+                        <div class="eatzy-card-footer">
+                            <div id="eatzy-card-action-13">
+                                <button class="eatzy-add-btn" 
+                                        onclick="EatzyApp.addToCart(13, 'Molten Valrhona Chocolate Cake', 250)">
+                                    <i class="fi fi-br-plus" style="font-size:12px;"></i> <span>Add to Cart &bull; ₱250.00</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+    </section>
+
+    <!-- Floating Sticky Cart Trigger for Mobile -->
+    <div class="eatzy-floating-cart-bar" id="eatzy-floating-cart-bar" onclick="EatzyApp.toggleCart(true)">
+        <div class="eatzy-float-left">
+            <i class="fi fi-br-shopping-bag eatzy-float-cart-icon" style="font-size:18px;"></i>
+            <span class="eatzy-float-count" id="eatzy-float-qty">0 items</span>
+        </div>
+        <div class="eatzy-float-right">
+            <span class="eatzy-float-total" id="eatzy-float-total">₱0.00</span>
+            <span>View Bag <i class="fi fi-br-arrow-right" style="margin-left:4px; font-size:11px;"></i></span>
+        </div>
+    </div>
+
+    <!-- Slide-out Express Cart Drawer (Cyber-Bistro Deluxe) -->
+    <div class="eatzy-cart-overlay" id="eatzy-cart-overlay" onclick="EatzyApp.toggleCart(false)"></div>
+    <aside class="eatzy-cart-drawer" id="eatzy-cart-drawer">
+        <div class="eatzy-drawer-header">
+            <div class="eatzy-drawer-title">
+                <h2>Your Order Bag</h2>
+                <span class="eatzy-pill" id="eatzy-drawer-count" style="margin-left:8px;">0 items</span>
+            </div>
+            <button class="eatzy-drawer-close" onclick="EatzyApp.toggleCart(false)"><i class="fi fi-br-cross" style="font-size:14px;"></i></button>
+        </div>
+
+        <div class="eatzy-drawer-body">
+            <!-- Free Delivery Progress Bar -->
+            <div class="eatzy-delivery-tier" id="eatzy-delivery-tier">
+                <span id="eatzy-delivery-tier-text">Add ₱1,000.00 for FREE delivery!</span>
+                <div class="eatzy-progress-bg">
+                    <div class="eatzy-progress-bar" id="eatzy-progress-bar" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <!-- Cart Items List -->
+            <div class="eatzy-cart-items" id="eatzy-cart-items">
+                <div class="eatzy-empty-cart">
+                    <i class="fi fi-br-shopping-bag" style="font-size:36px; display:block; margin:0 auto 10px auto; opacity:0.35;"></i>
+                    <p>Your bag is empty.</p>
+                    <span>Tap any delicious dish from the menu to start!</span>
+                </div>
+            </div>
+
+            <!-- Promo Code Input & One-Click Quick Chips -->
+            <div class="eatzy-promo-section">
+                <div class="eatzy-promo-input-group">
+                    <input type="text" id="eatzy-promo-code" placeholder="Enter promo code" style="text-transform: uppercase;">
+                    <button class="eatzy-promo-btn" onclick="EatzyApp.applyPromo()">Apply</button>
+                </div>
+                <div class="eatzy-quick-promos">
+                    <span class="eatzy-quick-chip" onclick="EatzyApp.quickApplyPromo('EATZYFIRST')"><i class="fi fi-br-badge-percent" style="margin-right:4px;"></i> EATZYFIRST (15% OFF)</span>
+                    <span class="eatzy-quick-chip" onclick="EatzyApp.quickApplyPromo('FREEDEL')"><i class="fi fi-br-tags" style="margin-right:4px;"></i> FREEDEL</span>
+                </div>
+                <div id="eatzy-promo-msg" class="eatzy-promo-msg" style="margin-top:6px; font-size:12px;"></div>
+            </div>
+
+            <!-- Diner Guest Details (<90s Target) -->
+            <div class="eatzy-guest-form">
+                <h3>Guest Delivery Information</h3>
+                <div class="eatzy-form-group">
+                    <label>Full Name *</label>
+                    <input type="text" id="diner-name" placeholder="Enter your full name" required autocomplete="name">
+                </div>
+                <div class="eatzy-form-group">
+                    <label>Philippine Mobile Number (Live SMS Tracking) *</label>
+                    <input type="tel" id="diner-phone" placeholder="09XXXXXXXXX (11 digits)" maxlength="11" required autocomplete="tel">
+                </div>
+                <div class="eatzy-form-group">
+                    <label>Delivery Address *</label>
+                    <textarea id="diner-address" rows="2" placeholder="Unit, Floor, Building, Street, Barangay, City" required autocomplete="street-address"></textarea>
+                </div>
+                <div class="eatzy-form-group">
+                    <label>Special Delivery Instructions</label>
+                    <input type="text" id="diner-notes" placeholder="e.g. Ring doorbell, leave with reception">
+                </div>
+            </div>
+
+            <!-- Payment Method Cards -->
+            <div class="eatzy-payment-methods">
+                <h3>Payment Method</h3>
+                <label class="eatzy-payment-option active">
+                    <input type="radio" name="eatzy_payment" value="gcash" checked onchange="EatzyApp.selectPayment(this)">
+                    <span class="eatzy-pay-icon" style="background:#007dfa; color:white; font-weight:bold; padding:4px 10px; border-radius:6px;"><i class="fi fi-br-wallet"></i> GCash</span>
+                    <span class="eatzy-pay-label" style="font-size:13px; font-weight:700;">GCash e-Wallet (Instant Clearance)</span>
+                </label>
+                <label class="eatzy-payment-option">
+                    <input type="radio" name="eatzy_payment" value="maya" onchange="EatzyApp.selectPayment(this)">
+                    <span class="eatzy-pay-icon" style="background:#00d084; color:black; font-weight:bold; padding:4px 10px; border-radius:6px;"><i class="fi fi-br-credit-card"></i> Maya</span>
+                    <span class="eatzy-pay-label" style="font-size:13px; font-weight:700;">Maya e-Wallet &amp; Cards</span>
+                </label>
+                <label class="eatzy-payment-option">
+                    <input type="radio" name="eatzy_payment" value="cod" onchange="EatzyApp.selectPayment(this)">
+                    <span class="eatzy-pay-icon" style="background:#4b5563; color:white; font-weight:bold; padding:4px 10px; border-radius:6px;"><i class="fi fi-br-dollar"></i> Cash</span>
+                    <span class="eatzy-pay-label" style="font-size:13px; font-weight:700;">Cash on Delivery (COD)</span>
+                </label>
+            </div>
+
+            <!-- Pricing Breakdown -->
+            <div class="eatzy-price-summary">
+                <div class="eatzy-summary-row">
+                    <span>Subtotal</span>
+                    <span id="eatzy-summary-subtotal">₱0.00</span>
+                </div>
+                <div class="eatzy-summary-row" id="eatzy-discount-row" style="display:none; color: var(--eatzy-mint); font-weight:700;">
+                    <span>Promo Discount</span>
+                    <span id="eatzy-summary-discount">-₱0.00</span>
+                </div>
+                <div class="eatzy-summary-row">
+                    <span>Delivery Fee</span>
+                    <span id="eatzy-summary-delivery">₱65.00</span>
+                </div>
+                <div class="eatzy-summary-row eatzy-summary-total">
+                    <span>Total Amount</span>
+                    <span id="eatzy-summary-total">₱65.00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="eatzy-drawer-footer">
+            <button class="eatzy-checkout-btn" id="eatzy-checkout-btn" onclick="EatzyApp.initiateCheckout()">
+                <span>Proceed to Pay</span> <i class="fi fi-br-arrow-right" style="margin-left:6px; font-size:12px;"></i>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Fintech-Grade GCash / Maya Modal -->
+    <div class="eatzy-modal-overlay" id="eatzy-payment-modal" style="display:none;">
+        <div class="eatzy-payment-dialog">
+            <div class="eatzy-gateway-header" id="eatzy-gateway-header">
+                <div class="eatzy-gateway-brand">
+                    <span class="eatzy-gateway-logo" id="eatzy-gateway-logo">GCash</span>
+                    <span class="eatzy-pill" style="font-size:9px; padding:2px 8px;"><i class="fi fi-br-shield-check" style="margin-right:3px;"></i> 256-bit TLS</span>
+                </div>
+                <button class="eatzy-modal-close" onclick="EatzyApp.closePaymentModal()"><i class="fi fi-br-cross" style="font-size:14px;"></i></button>
+            </div>
+
+            <div class="eatzy-gateway-body" style="padding: 24px; text-align: center;">
+                <span style="font-size:11px; text-transform:uppercase; color:#888ea0; letter-spacing:0.5px;">Merchant Recipient</span>
+                <h4 style="margin:4px 0 16px 0; font-size:15px; color:#fff;">EATZY PHILIPPINES INC. (eatzy.ph)</h4>
+                
+                <div class="eatzy-amount-box">
+                    <span style="font-size:11px; color:#888ea0; text-transform:uppercase;">Amount Due</span>
+                    <h2 class="eatzy-amount-value" id="eatzy-modal-amount">₱0.00</h2>
+                    <span class="eatzy-pill" id="eatzy-modal-orderno" style="font-size:10px;">EATZ-XXXX</span>
+                </div>
+
+                <div class="eatzy-qr-mockup" style="margin-bottom:16px;">
+                    <div style="display:inline-block; background:#fff; padding:12px; border-radius:14px; box-shadow:0 10px 25px rgba(0,0,0,0.5);">
+                        <div style="width:140px; height:140px; background:repeating-conic-gradient(#000 0% 25%, #fff 0% 50%) 50% / 14px 14px; border-radius:4px;"></div>
+                        <span style="display:block; color:#000; font-size:10px; font-weight:800; margin-top:6px;">Scan to Pay with App</span>
+                    </div>
+                </div>
+
+                <div class="eatzy-mpin-box" style="margin-bottom:16px;">
+                    <label style="display:block; font-size:12px; color:#9da3b4; margin-bottom:6px;">Enter 6-digit MPIN to authorize:</label>
+                    <input type="password" maxlength="6" id="eatzy-mpin-field" placeholder="••••••" class="eatzy-mpin-input" autocomplete="off" inputmode="numeric">
+                </div>
+
+                <div style="font-size:11px; color:#888ea0; margin-bottom:16px;">
+                    <i class="fi fi-br-shield-check" style="color:var(--eatzy-mint); margin-right:4px;"></i> Verified 256-bit Encrypted Transaction Clearance
+                </div>
+
+                <button class="eatzy-btn-approve" id="eatzy-btn-approve" onclick="EatzyApp.approvePayment()">
+                    <span>Authorize &amp; Pay Now</span> <i class="fi fi-br-arrow-right" style="margin-left:6px; font-size:12px;"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="eatzy-site-footer">
+        <div class="eatzy-footer-inner">
+            <div class="eatzy-footer-col">
+                <h4 style="color:var(--eatzy-primary);">EATZY PHILIPPINES</h4>
+                <p>An ultra-modern fast-casual food tech platform engineered for direct delivery ordering, instant guest checkout, and frictionless table bookings.</p>
+                <p style="color:#d0d4e0; font-weight:700;"><i class="fi fi-br-badge-check" style="margin-right:6px; color:var(--eatzy-mint);"></i>100% Zero Aggregator Markups</p>
+            </div>
+            <div class="eatzy-footer-col">
+                <h4>Hours of Service</h4>
+                <p><i class="fi fi-br-clock" style="margin-right:6px; font-size:12px;"></i>Lunch Service: 11:30 AM – 2:30 PM</p>
+                <p><i class="fi fi-br-clock" style="margin-right:6px; font-size:12px;"></i>Dinner Service: 5:30 PM – 10:00 PM</p>
+                <p><i class="fi fi-br-moped" style="margin-right:6px; font-size:12px;"></i>Express Delivery: Daily 11:00 AM – 9:30 PM</p>
+            </div>
+            <div class="eatzy-footer-col">
+                <h4>BGC Flagship Location</h4>
+                <p><i class="fi fi-br-marker" style="margin-right:6px; font-size:12px;"></i>High Street South Block, 26th Street,</p>
+                <p>Bonifacio Global City, Taguig, Metro Manila</p>
+                <p><i class="fi fi-br-phone-call" style="margin-right:6px; font-size:12px;"></i>Direct Hotlines: (02) 8829-EATZ &bull; 0917-882-9101</p>
+            </div>
+            <div class="eatzy-footer-col">
+                <h4>Financial Security &amp; Webhooks</h4>
+                <p><i class="fi fi-br-shield-check" style="margin-right:6px; font-size:12px;"></i>256-bit TLS End-to-End Encryption</p>
+                <p><i class="fi fi-br-check" style="margin-right:6px; font-size:12px;"></i>GCash Direct Webhook Clearance</p>
+                <p><i class="fi fi-br-check" style="margin-right:6px; font-size:12px;"></i>Maya e-Wallet &amp; Card Processing</p>
+                <p>Domain: <code style="color:var(--eatzy-primary);">eatzy.ph</code></p>
+            </div>
+        </div>
+        <div class="eatzy-footer-bottom">
+            <span>&copy; 2026 EATZY Philippines Inc. Built natively on Joomla 6.</span>
+            <span>Michelin Street-Tech UX &bull; WCAG 2.1 AA Compliant &bull; Ultra-Fast PWA</span>
+        </div>
+    </footer>
+
+    <!-- Mobile Bottom Thumb-Zone Navigation Bar -->
+    <nav class="eatzy-mobile-bottom-nav" aria-label="Mobile Navigation">
+        <a href="/EATZY/index.php/component/eatzy?view=menu" class="eatzy-bottom-nav-item active">
+            <i class="fi fi-br-hamburger"></i>
+            <span>Menu</span>
+        </a>
+        <a href="/EATZY/index.php/component/eatzy?view=book" class="eatzy-bottom-nav-item ">
+            <i class="fi fi-br-calendar"></i>
+            <span>Book</span>
+        </a>
+        <a href="/EATZY/index.php/component/eatzy?view=track" class="eatzy-bottom-nav-item ">
+            <i class="fi fi-br-moped"></i>
+            <span>Track</span>
+        </a>
+        <button type="button" class="eatzy-bottom-nav-item" onclick="EatzyApp.toggleCart(true)">
+            <div class="eatzy-bottom-cart-wrap">
+                <i class="fi fi-br-shopping-bag"></i>
+                <span id="eatzy-bottom-cart-badge" class="eatzy-cart-counter">0</span>
+            </div>
+            <span>Bag</span>
+        </button>
+    </nav>
+
+    <!-- Dynamic Island Carrier SMS Notification (Global) -->
+    <div class="eatzy-sms-toast" id="eatzy-sms-toast" style="display:none;">
+        <div class="eatzy-sms-header">
+            <span>GLOBE TELECOM &bull; INSTANT DISPATCH</span>
+            <span>Just Now</span>
+        </div>
+        <p class="eatzy-sms-body" id="eatzy-sms-body">
+            EATZY: Order confirmed and kitchen notified.
+        </p>
+    </div>
+
+    <!-- Client-side Scripts -->
+    <script src="components/com_eatzy/assets/js/eatzy.js?v=2.6.0"></script>
+    <script src="components/com_eatzy/assets/js/booking.js?v=2.6.0"></script>
+</body>
+</html>

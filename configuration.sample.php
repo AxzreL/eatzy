@@ -1,0 +1,43 @@
+<?php
+class JConfig {
+	public $offline = false;
+	public $offline_message = 'This site is down for maintenance.<br>Please check back again soon.';
+	public $display_offline_message = 1;
+	public $offline_image = '';
+	public $sitename = 'EATZY';
+	public $editor = 'tinymce';
+	public $captcha = '0';
+	public $list_limit = 20;
+	public $access = 1;
+	public $frontediting = 1;
+	public $debug = false;
+	public $debug_lang = false;
+	public $debug_lang_const = true;
+	public $dbtype = 'mysqli';
+	public $host = 'localhost';
+	public $user = 'root';
+	public $password = '';
+	public $db = 'joomla_db';
+	public $dbprefix = 'kh66p_';
+	public $dbencryption = 0;
+	public $dbsslverifyservercert = false;
+	public $dbsslkey = '';
+	public $dbsslcert = '';
+	public $dbsslca = '';
+	public $dbsslcipher = '';
+	public $force_ssl = 0;
+	public $live_site = '';
+	public $secret = 'CHANGE_THIS_SECRET_KEY';
+	public $gzip = false;
+	public $error_reporting = 'default';
+	public $helpurl = 'https://help.joomla.org/proxy?keyref=Help{major}{minor}:{keyref}&lang={langcode}';
+	public $offset = 'UTC';
+	public $cors = false;
+	public $cors_allow_origin = '*';
+	public $cors_allow_methods = '';
+	public $cors_allow_headers = 'Content-Type,X-Joomla-Token,Authorization';
+	public $mailonline = true;
+	public $mailer = 'mail';
+	public $fromname = 'EATZY';
+	public $caching = 0;
+}

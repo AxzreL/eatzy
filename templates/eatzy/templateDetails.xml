@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="template" client="site">
+    <name>eatzy</name>
+    <version>1.0.0</version>
+    <creationDate>2026-11</creationDate>
+    <author>EATZY Philippines</author>
+    <authorEmail>design@eatzy.ph</authorEmail>
+    <copyright>(C) 2026 EATZY</copyright>
+    <description>EATZY Signature Dark Culinary Template - Mobile-First Fast-Casual Dining Experience.</description>
+    <files>
+        <filename>index.php</filename>
+        <filename>templateDetails.xml</filename>
+        <folder>css</folder>
+        <folder>js</folder>
+        <folder>images</folder>
+        <folder>html</folder>
+    </files>
+    <positions>
+        <position>topbar</position>
+        <position>menu</position>
+        <position>hero</position>
+        <position>main</position>
+        <position>bottom</position>
+        <position>footer</position>
+    </positions>
+</extension>
+

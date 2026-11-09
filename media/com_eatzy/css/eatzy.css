@@ -1,0 +1,2516 @@
+/* ==========================================================================
+   EATZY - ULTRA-MODERN CYBER-BISTRO (MICHELIN STREET-TECH) COMPLETE SYSTEM
+   All Views: Menu • Express Cart Drawer • GCash Modal • Table Booking • Diner Tracker
+   WCAG 2.1 AA Compliant • Thumb-Zone Ergonomics
+   ========================================================================== */
+
+:root {
+    --eatzy-bg: #08090c;
+    --eatzy-bg-elevated: #0f1117;
+    --eatzy-surface: rgba(18, 20, 28, 0.85);
+    --eatzy-surface-solid: #13151f;
+    --eatzy-surface-hover: rgba(28, 32, 44, 0.95);
+    --eatzy-border: rgba(255, 255, 255, 0.08);
+    --eatzy-border-hover: rgba(255, 69, 0, 0.45);
+    --eatzy-border-glow: rgba(255, 69, 0, 0.25);
+    
+    /* Michelin Cyber Palette */
+    --eatzy-primary: #ff4500;
+    --eatzy-primary-gradient: linear-gradient(135deg, #ff5722 0%, #ff3d00 50%, #d82b00 100%);
+    --eatzy-primary-hover: #ff5722;
+    --eatzy-mint: #00f5a0;
+    --eatzy-blue: #007dfa;
+    --eatzy-gold: #ffb703;
+
+    /* Typography */
+    --eatzy-text-primary: #ffffff;
+    --eatzy-text-secondary: #9da3b4;
+    --eatzy-text-muted: #62687c;
+    --eatzy-font: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    
+    --eatzy-radius-sm: 8px;
+    --eatzy-radius-md: 14px;
+    --eatzy-radius-lg: 20px;
+    --eatzy-radius-pill: 9999px;
+    --eatzy-shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.7);
+    --eatzy-shadow-card: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body, html {
+    background-color: var(--eatzy-bg);
+    color: var(--eatzy-text-primary);
+    font-family: var(--eatzy-font);
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+}
+
+a {
+    color: var(--eatzy-primary);
+    text-decoration: none;
+}
+
+/* Flaticon UIcons Alignment */
+.fi {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    vertical-align: -0.1em;
+}
+
+.eatzy-nav-link .fi {
+    font-size: 14px;
+    margin-right: 4px;
+}
+
+/* Background Atmospheric Mesh */
+/* Atmospheric background */
+body::before, body::after {
+    display: none;
+}
+
+.eatzy-app-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 16px;
+    position: relative;
+    z-index: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Common Header, Back Link & Pills
+   -------------------------------------------------------------------------- */
+.eatzy-page-header {
+    margin-bottom: 24px;
+}
+
+.eatzy-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #9da3b4;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 8px 18px;
+    border-radius: var(--eatzy-radius-pill);
+    margin-bottom: 16px;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.eatzy-back-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #fff;
+    transform: translateX(-3px);
+}
+
+.eatzy-page-title {
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 900;
+    letter-spacing: -1px;
+    margin: 12px 0 6px 0;
+    color: #fff;
+}
+
+.eatzy-page-sub {
+    font-size: 15px;
+    color: var(--eatzy-text-secondary);
+    margin: 0 0 24px 0;
+}
+
+.eatzy-badge-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.eatzy-pill,
+.eatzy-pill-orange,
+.eatzy-pill-mint {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    color: #9da3b4;
+    padding: 6px 14px;
+    border-radius: var(--eatzy-radius-pill);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    backdrop-filter: blur(8px);
+}
+
+.eatzy-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: var(--eatzy-radius-pill);
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    border: none;
+}
+
+.eatzy-btn-primary {
+    background: var(--eatzy-primary-gradient);
+    color: #fff;
+    box-shadow: 0 8px 25px rgba(255, 69, 0, 0.4);
+}
+
+.eatzy-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(255, 69, 0, 0.55);
+}
+
+.eatzy-btn-outline {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+}
+
+.eatzy-btn-outline:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #fff;
+    transform: translateY(-2px);
+}
+
+.eatzy-btn-mint {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    font-weight: 700;
+}
+
+.eatzy-btn-mint:hover {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+.eatzy-btn-large {
+    width: 100%;
+    padding: 18px;
+    font-size: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   Live Kitchen Pulse Bar
+   -------------------------------------------------------------------------- */
+.eatzy-kitchen-pulse-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(19, 21, 31, 0.85);
+    backdrop-filter: blur(14px);
+    border: 1px solid var(--eatzy-border);
+    border-radius: var(--eatzy-radius-pill);
+    padding: 7px 18px;
+    margin-bottom: 22px;
+    font-size: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.eatzy-pulse-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    font-weight: 700;
+}
+
+.eatzy-pulse-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--eatzy-mint);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--eatzy-mint);
+    animation: eatzyPulse 1.8s infinite;
+}
+
+@keyframes eatzyPulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 245, 160, 0.7); }
+    70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(0, 245, 160, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 245, 160, 0); }
+}
+
+.eatzy-pulse-right {
+    color: var(--eatzy-text-secondary);
+    font-size: 11px;
+}
+
+/* --------------------------------------------------------------------------
+   Hero Section
+   -------------------------------------------------------------------------- */
+.eatzy-hero-banner {
+    position: relative;
+    background: linear-gradient(135deg, rgba(21, 24, 35, 0.9) 0%, rgba(13, 14, 20, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--eatzy-radius-lg);
+    padding: 44px 32px;
+    margin-bottom: 36px;
+    box-shadow: var(--eatzy-shadow-lg);
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 32px;
+    align-items: center;
+    overflow: hidden;
+}
+
+@media (max-width: 860px) {
+    .eatzy-hero-banner {
+        grid-template-columns: 1fr;
+        padding: 30px 20px;
+        gap: 24px;
+    }
+}
+
+.eatzy-hero-banner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--eatzy-primary) 30%, var(--eatzy-mint) 70%, transparent 100%);
+}
+
+.eatzy-hero-title {
+    font-size: clamp(34px, 5.5vw, 56px);
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    line-height: 1.05;
+    margin: 0 0 16px 0;
+    color: #ffffff;
+}
+
+.eatzy-hero-title span {
+    background: var(--eatzy-primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.eatzy-hero-sub {
+    font-size: 16px;
+    color: var(--eatzy-text-secondary);
+    line-height: 1.6;
+    margin: 0 0 28px 0;
+    max-width: 580px;
+}
+
+.eatzy-hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+/* Hero Showcase Card */
+.eatzy-showcase-card {
+    background: rgba(22, 25, 36, 0.85);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--eatzy-radius-md);
+    overflow: hidden;
+    box-shadow: var(--eatzy-shadow-lg);
+    transition: transform 0.3s;
+}
+
+.eatzy-showcase-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--eatzy-border-hover);
+}
+
+.eatzy-showcase-img-wrap {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.eatzy-showcase-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.eatzy-showcase-card:hover .eatzy-showcase-img {
+    transform: scale(1.06);
+}
+
+.eatzy-showcase-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(14, 16, 24, 0.95) 100%);
+}
+
+.eatzy-showcase-body {
+    padding: 16px 20px 20px 20px;
+}
+
+.eatzy-showcase-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.eatzy-showcase-title {
+    font-size: 18px;
+    font-weight: 800;
+    margin: 0;
+    color: #fff;
+}
+
+.eatzy-showcase-price {
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--eatzy-primary);
+}
+
+.eatzy-showcase-stats {
+    display: flex;
+    gap: 12px;
+    font-size: 12px;
+    color: var(--eatzy-mint);
+    font-weight: 600;
+}
+
+/* Dining Mode Tabs */
+.eatzy-mode-tabs {
+    display: flex;
+    background: rgba(18, 20, 28, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--eatzy-border);
+    border-radius: var(--eatzy-radius-pill);
+    padding: 4px;
+    max-width: 440px;
+    margin: 0 auto 28px auto;
+}
+
+.eatzy-mode-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--eatzy-text-secondary);
+    padding: 10px 14px;
+    border-radius: var(--eatzy-radius-pill);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.eatzy-mode-btn.active {
+    background: var(--eatzy-primary-gradient);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(255, 69, 0, 0.35);
+}
+
+/* --------------------------------------------------------------------------
+   Menu Search & Bento Grid
+   -------------------------------------------------------------------------- */
+.eatzy-controls-bar {
+    margin-bottom: 28px;
+}
+
+.eatzy-search-box {
+    display: flex;
+    align-items: center;
+    background: rgba(20, 23, 33, 0.8);
+    backdrop-filter: blur(14px);
+    border: 1px solid var(--eatzy-border);
+    border-radius: var(--eatzy-radius-pill);
+    padding: 10px 20px;
+    margin-bottom: 16px;
+    transition: all 0.25s;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.eatzy-search-box:focus-within {
+    border-color: var(--eatzy-primary);
+    box-shadow: 0 0 20px rgba(255, 69, 0, 0.25);
+}
+
+.eatzy-search-icon {
+    font-size: 16px;
+    margin-right: 12px;
+    color: var(--eatzy-primary);
+}
+
+.eatzy-search-box input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 15px;
+    width: 100%;
+    flex: 1 1 0%;
+    min-width: 0;
+    font-family: inherit;
+}
+
+.eatzy-category-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 10px;
+    margin-bottom: 8px;
+}
+
+.eatzy-cat-btn {
+    background: rgba(22, 25, 36, 0.75);
+    color: var(--eatzy-text-secondary);
+    border: 1px solid var(--eatzy-border);
+    padding: 9px 20px;
+    border-radius: var(--eatzy-radius-pill);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(10px);
+}
+
+.eatzy-cat-btn:hover {
+    color: #fff;
+    background: rgba(35, 40, 56, 0.85);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.eatzy-cat-btn.active {
+    background: #ffffff;
+    color: #08090c;
+    border-color: #ffffff;
+    font-weight: 800;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+.eatzy-menu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+@media (max-width: 600px) {
+    .eatzy-menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+}
+
+@media (min-width: 900px) {
+    .eatzy-menu-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .eatzy-menu-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.eatzy-card {
+    background: var(--eatzy-surface);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--eatzy-border);
+    border-radius: var(--eatzy-radius-md);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: var(--eatzy-shadow-card);
+    position: relative;
+}
+
+.eatzy-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--eatzy-border-hover);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 69, 0, 0.15);
+}
+
+.eatzy-card-media {
+    position: relative;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: #11131a;
+}
+
+.eatzy-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.eatzy-card:hover .eatzy-card-img {
+    transform: scale(1.08);
+}
+
+.eatzy-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(14, 16, 24, 0.95) 100%);
+    pointer-events: none;
+}
+
+.eatzy-dish-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(10, 11, 16, 0.85);
+    backdrop-filter: blur(8px);
+    padding: 4px 9px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    z-index: 2;
+}
+
+.eatzy-badge-special {
+    color: #e2e5ec;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: none;
+}
+
+.eatzy-badge-spice {
+    right: 10px;
+    left: auto;
+    font-size: 11px;
+}
+
+.eatzy-card-body {
+    padding: 14px 16px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.eatzy-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.eatzy-dish-title {
+    font-size: 15px;
+    font-weight: 800;
+    margin: 0;
+    color: #fff;
+    line-height: 1.25;
+}
+
+.eatzy-dish-price {
+    font-size: 16px;
+    font-weight: 900;
+    color: var(--eatzy-primary);
+    white-space: nowrap;
+}
+
+.eatzy-dish-desc {
+    font-size: 12px;
+    color: var(--eatzy-text-secondary);
+    line-height: 1.45;
+    margin: 0 0 10px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.eatzy-dish-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 14px;
+}
+
+.eatzy-tag {
+    background: rgba(255, 255, 255, 0.05);
+    color: #9da3b4;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.eatzy-card-footer {
+    margin-top: auto;
+}
+
+.eatzy-add-btn {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+    border: 1px solid var(--eatzy-border);
+    padding: 10px 14px;
+    border-radius: var(--eatzy-radius-pill);
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.eatzy-add-btn:hover {
+    background: var(--eatzy-primary-gradient);
+    border-color: var(--eatzy-primary);
+    box-shadow: 0 4px 18px rgba(255, 69, 0, 0.35);
+}
+
+.eatzy-inline-stepper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--eatzy-primary-gradient);
+    border-radius: var(--eatzy-radius-pill);
+    padding: 4px;
+    color: #fff;
+    font-weight: 800;
+    box-shadow: 0 4px 18px rgba(255, 69, 0, 0.35);
+}
+
+.eatzy-inline-stepper button {
+    background: rgba(0, 0, 0, 0.25);
+    border: none;
+    color: #fff;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: 900;
+    font-size: 14px;
+}
+
+/* --------------------------------------------------------------------------
+   Floating Mobile Cart Bar
+   -------------------------------------------------------------------------- */
+.eatzy-floating-cart-bar {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    background: var(--eatzy-primary-gradient);
+    color: #fff;
+    border-radius: var(--eatzy-radius-pill);
+    padding: 16px 24px;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 10px 35px rgba(255, 69, 0, 0.55);
+    z-index: 900;
+    cursor: pointer;
+    font-weight: 800;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.eatzy-floating-cart-bar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 45px rgba(255, 69, 0, 0.65);
+}
+
+.eatzy-float-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.eatzy-float-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.eatzy-float-total {
+    font-size: 17px;
+    font-weight: 900;
+}
+
+/* --------------------------------------------------------------------------
+   Slide-out Express Cart Drawer
+   -------------------------------------------------------------------------- */
+.eatzy-cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: none;
+}
+
+.eatzy-cart-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 460px;
+    background: #0f1118;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: -15px 0 45px rgba(0, 0, 0, 0.7);
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.eatzy-cart-drawer.open {
+    transform: translateX(0);
+}
+
+.eatzy-drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--eatzy-border);
+    background: rgba(18, 20, 28, 0.9);
+}
+
+.eatzy-drawer-title h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 900;
+    color: #fff;
+}
+
+.eatzy-drawer-close {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--eatzy-border);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.eatzy-drawer-body {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px 24px;
+}
+
+.eatzy-delivery-tier {
+    background: rgba(0, 245, 160, 0.08);
+    border: 1px solid rgba(0, 245, 160, 0.25);
+    padding: 12px 16px;
+    border-radius: var(--eatzy-radius-sm);
+    font-size: 13px;
+    color: var(--eatzy-mint);
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.eatzy-progress-bg {
+    background: rgba(255, 255, 255, 0.1);
+    height: 6px;
+    border-radius: 3px;
+    margin-top: 8px;
+    overflow: hidden;
+}
+
+.eatzy-progress-bar {
+    background: var(--eatzy-mint);
+    box-shadow: 0 0 10px var(--eatzy-mint);
+    height: 100%;
+    transition: width 0.3s;
+}
+
+.eatzy-cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.eatzy-cart-item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(22, 25, 36, 0.7);
+    padding: 12px 14px;
+    border-radius: var(--eatzy-radius-sm);
+    border: 1px solid var(--eatzy-border);
+}
+
+.eatzy-empty-cart {
+    text-align: center;
+    padding: 40px 10px;
+    color: var(--eatzy-text-secondary);
+}
+
+.eatzy-quick-promos {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.eatzy-quick-chip {
+    background: rgba(255, 69, 0, 0.12);
+    color: var(--eatzy-primary);
+    border: 1px dashed rgba(255, 69, 0, 0.4);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.eatzy-quick-chip:hover {
+    background: rgba(255, 69, 0, 0.25);
+}
+
+.eatzy-promo-input-group {
+    display: flex;
+    gap: 6px;
+}
+
+.eatzy-promo-input-group input {
+    flex: 1 1 0%;
+    min-width: 0;
+    width: 100%;
+    background: rgba(22, 25, 36, 0.8);
+    border: 1px solid var(--eatzy-border);
+    padding: 10px 14px;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 13px;
+}
+
+.eatzy-promo-btn {
+    background: #25293a;
+    color: #fff;
+    border: 1px solid var(--eatzy-border);
+    padding: 0 16px;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.eatzy-guest-form h3, .eatzy-payment-methods h3 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #fff;
+    margin: 20px 0 10px 0;
+    font-weight: 800;
+}
+
+.eatzy-form-group {
+    margin-bottom: 12px;
+}
+
+.eatzy-form-group label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--eatzy-text-secondary);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.eatzy-form-group input, .eatzy-form-group textarea {
+    width: 100%;
+    background: rgba(18, 20, 28, 0.8);
+    border: 1px solid var(--eatzy-border);
+    padding: 10px 12px;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+}
+
+.eatzy-form-group input:focus, .eatzy-form-group textarea:focus {
+    border-color: var(--eatzy-primary);
+}
+
+.eatzy-payment-methods {
+    margin-bottom: 24px;
+}
+
+.eatzy-payment-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(22, 25, 36, 0.7);
+    padding: 12px 16px;
+    border-radius: var(--eatzy-radius-sm);
+    border: 1px solid var(--eatzy-border);
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.eatzy-payment-option.active {
+    border-color: var(--eatzy-primary);
+    background: rgba(255, 69, 0, 0.1);
+}
+
+.eatzy-price-summary {
+    background: rgba(18, 20, 28, 0.85);
+    padding: 14px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--eatzy-border);
+    font-size: 13px;
+}
+
+.eatzy-summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    color: var(--eatzy-text-secondary);
+}
+
+.eatzy-summary-total {
+    border-top: 1px solid var(--eatzy-border);
+    padding-top: 10px;
+    margin-top: 8px;
+    font-size: 17px;
+    font-weight: 900;
+    color: #fff;
+}
+
+.eatzy-drawer-footer {
+    padding: 18px 24px;
+    border-top: 1px solid var(--eatzy-border);
+    background: rgba(15, 17, 24, 0.95);
+}
+
+.eatzy-checkout-btn {
+    width: 100%;
+    background: var(--eatzy-primary-gradient);
+    color: #fff;
+    border: none;
+    padding: 18px;
+    border-radius: var(--eatzy-radius-pill);
+    font-size: 16px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 8px 30px rgba(255, 69, 0, 0.45);
+    transition: all 0.2s;
+}
+
+.eatzy-checkout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(255, 69, 0, 0.6);
+}
+
+/* --------------------------------------------------------------------------
+   Fintech-Grade GCash / Maya Modal
+   -------------------------------------------------------------------------- */
+.eatzy-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+
+.eatzy-payment-dialog {
+    background: #141722;
+    border-radius: 24px;
+    width: 100%;
+    max-width: 420px;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.eatzy-gateway-header {
+    background: linear-gradient(135deg, #0052cc 0%, #007dfa 100%);
+    padding: 18px 22px;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.eatzy-gateway-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.eatzy-gateway-logo {
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+}
+
+.eatzy-modal-close {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.eatzy-amount-box {
+    background: rgba(10, 11, 16, 0.6);
+    border: 1px solid var(--eatzy-border);
+    border-radius: var(--eatzy-radius-md);
+    padding: 16px;
+    margin-bottom: 18px;
+}
+
+.eatzy-amount-value {
+    margin: 4px 0;
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--eatzy-mint);
+}
+
+.eatzy-mpin-input {
+    letter-spacing: 12px;
+    text-align: center;
+    font-size: 20px;
+    padding: 8px;
+    width: 170px;
+    background: #0d0f15;
+    border: 1px solid var(--eatzy-border);
+    color: #fff;
+    border-radius: 8px;
+}
+
+.eatzy-btn-approve {
+    width: 100%;
+    background: linear-gradient(135deg, #0052cc 0%, #007dfa 100%);
+    color: #fff;
+    border: none;
+    padding: 16px;
+    border-radius: var(--eatzy-radius-pill);
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 6px 25px rgba(0, 125, 250, 0.45);
+    transition: transform 0.2s;
+}
+
+.eatzy-btn-approve:hover {
+    transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   Dynamic Island SMS Toast
+   -------------------------------------------------------------------------- */
+.eatzy-sms-toast {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(18, 20, 28, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 20px;
+    padding: 14px 20px;
+    width: 90%;
+    max-width: 420px;
+    z-index: 3000;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+    animation: eatzyIslandSlide 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes eatzyIslandSlide {
+    from { top: -80px; opacity: 0; transform: translateX(-50%) scale(0.9); }
+    to { top: 24px; opacity: 1; transform: translateX(-50%) scale(1); }
+}
+
+.eatzy-sms-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--eatzy-mint);
+    margin-bottom: 4px;
+}
+
+.eatzy-sms-body {
+    margin: 0;
+    font-size: 13px;
+    color: #fff;
+    line-height: 1.45;
+}
+
+/* ==========================================================================
+   DINER TRACKER VIEW (FULL STYLES)
+   ========================================================================== */
+.eatzy-tracker-wrapper {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 10px 0 60px 0;
+}
+
+/* Order Ticket Lookup Search Bar */
+.eatzy-order-lookup-bar {
+    background: var(--eatzy-surface);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--eatzy-border);
+    border-radius: var(--eatzy-radius-pill);
+    padding: 6px 8px 6px 18px;
+    margin-bottom: 20px;
+    box-shadow: var(--eatzy-shadow-card);
+    transition: all 0.25s ease;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.eatzy-order-lookup-bar:focus-within {
+    border-color: var(--eatzy-primary);
+    box-shadow: 0 0 20px rgba(255, 69, 0, 0.25);
+}
+
+.eatzy-lookup-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.eatzy-lookup-icon {
+    font-size: 15px;
+    opacity: 0.7;
+    flex-shrink: 0;
+    color: var(--eatzy-primary);
+}
+
+.eatzy-lookup-input {
+    flex: 1 1 0%;
+    min-width: 0;
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    font-family: inherit;
+    font-weight: 700;
+    outline: none;
+    padding: 4px 0;
+    box-sizing: border-box;
+}
+
+.eatzy-lookup-input::placeholder {
+    color: var(--eatzy-text-muted);
+    font-weight: 500;
+}
+
+.eatzy-lookup-btn {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    padding: 8px 18px;
+    border-radius: var(--eatzy-radius-pill);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    white-space: nowrap;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    box-sizing: border-box;
+}
+
+.eatzy-lookup-btn:hover {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.28);
+    transform: translateY(-1px);
+}
+
+.eatzy-lookup-text-short {
+    display: none;
+}
+
+.eatzy-tracker-pill-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0 8px 0;
+}
+
+.eatzy-tracker-order-id {
+    font-size: clamp(32px, 5.5vw, 48px);
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    margin: 4px 0 4px 0;
+    color: #fff;
+}
+
+.eatzy-eta-card {
+    background: var(--eatzy-surface);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--eatzy-border);
+    border-radius: var(--eatzy-radius-lg);
+    padding: 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin: 24px 0;
+    box-shadow: var(--eatzy-shadow-card);
+    position: relative;
+    overflow: hidden;
+}
+
+.eatzy-eta-card::after {
+    display: none;
+}
+
+.eatzy-eta-icon {
+    font-size: 36px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    width: 64px;
+    height: 64px;
+    border-radius: var(--eatzy-radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.eatzy-eta-content {
+    flex-grow: 1;
+}
+
+.eatzy-eta-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--eatzy-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.eatzy-eta-time {
+    font-size: 26px;
+    font-weight: 900;
+    color: #ffffff;
+    margin: 4px 0 8px 0;
+    letter-spacing: -0.5px;
+}
+
+.eatzy-eta-sub {
+    font-size: 13px;
+    color: #fff;
+    margin: 0 0 4px 0;
+}
+
+.eatzy-eta-addr {
+    font-size: 12px;
+    color: var(--eatzy-text-secondary);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.eatzy-stepper-card {
+    background: var(--eatzy-surface);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--eatzy-border);
+    border-radius: var(--eatzy-radius-lg);
+    padding: 26px 24px;
+    margin-bottom: 24px;
+    box-shadow: var(--eatzy-shadow-card);
+}
+
+.eatzy-stepper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+}
+
+.eatzy-step-node {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    position: relative;
+    opacity: 0.35;
+    transition: opacity 0.3s;
+}
+
+.eatzy-step-node.done, .eatzy-step-node.active {
+    opacity: 1;
+}
+
+.eatzy-step-marker {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #1c1f2e;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    color: var(--eatzy-text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 900;
+    flex-shrink: 0;
+    z-index: 2;
+}
+
+.eatzy-step-node.done .eatzy-step-marker {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    box-shadow: none;
+}
+
+.eatzy-step-node.active .eatzy-step-marker {
+    background: var(--eatzy-primary);
+    border-color: var(--eatzy-primary);
+    color: #fff;
+    box-shadow: 0 0 16px rgba(255, 69, 0, 0.6);
+    animation: eatzyPulse 1.8s infinite;
+}
+
+.eatzy-step-text h4 {
+    margin: 0 0 4px 0;
+    font-size: 15px;
+    font-weight: 800;
+    color: #fff;
+}
+
+.eatzy-step-text p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--eatzy-text-secondary);
+    line-height: 1.4;
+}
+
+.eatzy-tracker-breakdown {
+    background: var(--eatzy-surface);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--eatzy-border);
+    border-radius: var(--eatzy-radius-lg);
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: var(--eatzy-shadow-card);
+}
+
+.eatzy-tracker-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.eatzy-tracker-item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 10px 14px;
+    border-radius: var(--eatzy-radius-sm);
+    border: 1px solid var(--eatzy-border);
+}
+
+.eatzy-tracker-item-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.eatzy-item-qty {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 2px 7px;
+    border-radius: 4px;
+}
+
+.eatzy-item-title {
+    font-weight: 700;
+    font-size: 14px;
+    color: #fff;
+}
+
+.eatzy-item-price {
+    font-weight: 800;
+    font-size: 14px;
+    color: #fff;
+}
+
+.eatzy-tracker-totals {
+    border-top: 1px solid var(--eatzy-border);
+    padding-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.eatzy-total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--eatzy-text-secondary);
+}
+
+.eatzy-final-total {
+    border-top: 1px solid var(--eatzy-border);
+    padding-top: 10px;
+    margin-top: 4px;
+    font-size: 17px;
+    font-weight: 900;
+    color: #fff;
+}
+
+.eatzy-txn-ref {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.35);
+    border-radius: 6px;
+    font-size: 11px;
+    color: var(--eatzy-text-muted);
+}
+
+.eatzy-txn-ref code {
+    color: #d1d5e0;
+    font-family: monospace;
+    font-size: 12px;
+}
+
+.eatzy-loyalty-prompt {
+    background: var(--eatzy-surface);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--eatzy-border);
+    border-radius: var(--eatzy-radius-lg);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    box-shadow: var(--eatzy-shadow-card);
+}
+
+@media (max-width: 600px) {
+    .eatzy-loyalty-prompt {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .eatzy-loyalty-prompt button {
+        width: 100%;
+    }
+}
+
+.eatzy-loyalty-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.eatzy-loyalty-icon {
+    font-size: 32px;
+}
+
+.eatzy-loyalty-info h4 {
+    margin: 0 0 4px 0;
+    font-size: 15px;
+    font-weight: 800;
+    color: #fff;
+}
+
+.eatzy-loyalty-info p {
+    margin: 0;
+    font-size: 12px;
+    color: var(--eatzy-text-secondary);
+}
+
+/* ==========================================================================
+   TABLE BOOKING VIEW (FULL STYLES)
+   ========================================================================== */
+.eatzy-booking-wrapper {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 10px 0 60px 0;
+}
+
+.eatzy-booking-card {
+    background: var(--eatzy-surface);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--eatzy-border);
+    border-radius: var(--eatzy-radius-lg);
+    padding: 28px 24px;
+    box-shadow: var(--eatzy-shadow-lg);
+}
+
+.eatzy-book-step {
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--eatzy-border);
+}
+
+.eatzy-book-step:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.eatzy-step-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #e2e5ec;
+    margin-bottom: 12px;
+}
+
+.eatzy-guest-selector, .eatzy-slot-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.eatzy-guest-chip, .eatzy-slot-chip {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    border: 1px solid var(--eatzy-border);
+    padding: 10px 18px;
+    border-radius: var(--eatzy-radius-pill);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.eatzy-guest-chip:hover, .eatzy-slot-chip:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.eatzy-guest-chip.active, .eatzy-slot-chip.active {
+    background: var(--eatzy-primary-gradient);
+    border-color: var(--eatzy-primary);
+    box-shadow: 0 4px 15px rgba(255, 69, 0, 0.4);
+    color: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   Dining Day & Week Selector (Month Excluded)
+   -------------------------------------------------------------------------- */
+.eatzy-week-toggle {
+    display: inline-flex;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 3px;
+    border-radius: var(--eatzy-radius-pill, 9999px);
+    border: 1px solid var(--eatzy-border);
+}
+
+.eatzy-week-btn {
+    background: transparent;
+    border: none;
+    color: var(--eatzy-text-secondary);
+    padding: 6px 14px;
+    border-radius: var(--eatzy-radius-pill, 9999px);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    display: inline-flex;
+    align-items: center;
+}
+
+.eatzy-week-btn:hover {
+    color: #fff;
+}
+
+.eatzy-week-btn.active {
+    background: var(--eatzy-primary-gradient);
+    color: #fff;
+    box-shadow: 0 2px 10px rgba(255, 69, 0, 0.4);
+}
+
+.eatzy-days-track {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+    width: 100%;
+}
+
+.eatzy-days-track.hidden {
+    display: none !important;
+}
+
+.eatzy-day-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--eatzy-border);
+    border-radius: 12px;
+    padding: 12px 6px;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    color: #fff;
+    outline: none;
+    user-select: none;
+}
+
+.eatzy-day-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 69, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+.eatzy-day-card.active {
+    background: linear-gradient(180deg, rgba(255, 69, 0, 0.24) 0%, rgba(255, 69, 0, 0.08) 100%);
+    border-color: var(--eatzy-primary, #ff4500);
+    box-shadow: 0 4px 18px rgba(255, 69, 0, 0.35);
+}
+
+.eatzy-day-badge {
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--eatzy-primary, #ff4500);
+    letter-spacing: 0.5px;
+}
+
+.eatzy-day-card.active .eatzy-day-badge {
+    color: #ff8533;
+}
+
+.eatzy-day-number {
+    font-size: 20px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+}
+
+.eatzy-day-name {
+    font-size: 11px;
+    color: var(--eatzy-text-secondary);
+    font-weight: 600;
+}
+
+.eatzy-day-card.active .eatzy-day-name {
+    color: #e5e7eb;
+}
+
+.eatzy-day-status {
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--eatzy-mint, #00d084);
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    margin-top: 2px;
+}
+
+.eatzy-day-status .eatzy-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--eatzy-mint, #00d084);
+    display: inline-block;
+}
+
+.eatzy-selected-day-banner {
+    background: rgba(0, 208, 132, 0.07);
+    border: 1px solid rgba(0, 208, 132, 0.2);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #e5e7eb;
+    display: flex;
+    align-items: center;
+}
+
+.eatzy-slot-group {
+    margin-bottom: 14px;
+}
+
+.eatzy-slot-heading {
+    margin: 0 0 8px 0;
+    font-size: 12px;
+    color: var(--eatzy-text-secondary);
+    font-weight: 700;
+}
+
+.eatzy-zone-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+@media (max-width: 580px) {
+    .eatzy-zone-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+.eatzy-zone-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--eatzy-border);
+    border-radius: var(--eatzy-radius-md);
+    padding: 16px;
+    cursor: pointer;
+    display: flex;
+    gap: 12px;
+    transition: all 0.25s;
+}
+
+.eatzy-zone-card:hover {
+    border-color: rgba(255, 69, 0, 0.3);
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.eatzy-zone-card.active {
+    border-color: var(--eatzy-primary);
+    background: rgba(255, 69, 0, 0.12);
+    box-shadow: 0 4px 20px rgba(255, 69, 0, 0.25);
+}
+
+.eatzy-zone-icon {
+    font-size: 28px;
+}
+
+.eatzy-zone-info h4 {
+    margin: 0 0 4px 0;
+    font-size: 14px;
+    font-weight: 800;
+    color: #fff;
+}
+
+.eatzy-zone-info p {
+    margin: 0;
+    font-size: 12px;
+    color: var(--eatzy-text-secondary);
+    line-height: 1.4;
+}
+
+.eatzy-input {
+    width: 100%;
+    background: rgba(10, 11, 16, 0.7);
+    border: 1px solid var(--eatzy-border);
+    padding: 12px 16px;
+    border-radius: var(--eatzy-radius-sm);
+    color: #fff;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.eatzy-input:focus {
+    border-color: var(--eatzy-primary);
+    box-shadow: 0 0 15px rgba(255, 69, 0, 0.2);
+}
+
+.eatzy-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+@media (max-width: 580px) {
+    .eatzy-form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.eatzy-book-footer {
+    margin-top: 24px;
+}
+
+.eatzy-booking-success {
+    background: var(--eatzy-surface);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 245, 160, 0.3);
+    border-radius: var(--eatzy-radius-lg);
+    padding: 36px 24px;
+    text-align: center;
+    box-shadow: var(--eatzy-shadow-lg);
+}
+
+.eatzy-success-badge {
+    display: inline-block;
+    background: rgba(0, 245, 160, 0.15);
+    color: var(--eatzy-mint);
+    border: 1px solid rgba(0, 245, 160, 0.35);
+    padding: 6px 16px;
+    border-radius: var(--eatzy-radius-pill);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.eatzy-success-code {
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--eatzy-primary);
+    margin: 16px 0 8px 0;
+    letter-spacing: -0.5px;
+}
+
+.eatzy-success-msg {
+    font-size: 14px;
+    color: var(--eatzy-text-secondary);
+    max-width: 440px;
+    margin: 0 auto 24px auto;
+}
+
+.eatzy-ticket-details {
+    background: rgba(10, 11, 16, 0.7);
+    border: 1px solid var(--eatzy-border);
+    border-radius: var(--eatzy-radius-md);
+    padding: 16px 20px;
+    max-width: 480px;
+    margin: 0 auto 24px auto;
+    text-align: left;
+}
+
+.eatzy-ticket-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.eatzy-ticket-row:last-child {
+    border-bottom: none;
+}
+
+.eatzy-ticket-row span {
+    color: var(--eatzy-text-secondary);
+}
+
+.eatzy-ticket-row strong {
+    color: #fff;
+}
+
+.eatzy-success-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   EATZY MOBILE RESPONSIVE ENGINE (320px – 768px)
+   Engineered for Mobile-First Food-Tech Usability (Grab/DoorDash UX)
+   ========================================================================== */
+
+/* Input Auto-Zoom Prevention on iOS */
+@media (max-width: 768px) {
+    .eatzy-input,
+    .eatzy-form-group input,
+    .eatzy-form-group textarea,
+    .eatzy-promo-input-group input,
+    .eatzy-search-box input {
+        font-size: 16px !important;
+    }
+
+    .eatzy-lookup-input {
+        font-size: 13px !important;
+        flex: 1 1 0% !important;
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+
+    .eatzy-app-container {
+        padding: 12px;
+    }
+
+    /* Floating Order Bag Bar above Bottom Navigation */
+    .eatzy-floating-cart-bar {
+        bottom: calc(72px + env(safe-area-inset-bottom, 0px)) !important;
+        left: 12px !important;
+        right: 12px !important;
+        padding: 12px 18px !important;
+        border-radius: var(--eatzy-radius-pill) !important;
+        box-shadow: 0 8px 30px rgba(255, 69, 0, 0.5) !important;
+    }
+
+    .eatzy-float-total {
+        font-size: 15px !important;
+    }
+
+    /* Express Cart Drawer Full Screen Slide */
+    .eatzy-cart-drawer {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        border-left: none !important;
+    }
+
+    .eatzy-drawer-header {
+        padding: 14px 18px !important;
+    }
+
+    .eatzy-drawer-body {
+        padding: 14px 16px !important;
+    }
+
+    .eatzy-drawer-footer {
+        padding: 14px 18px calc(18px + env(safe-area-inset-bottom, 0px)) 18px !important;
+    }
+
+    .eatzy-checkout-btn {
+        padding: 15px !important;
+        font-size: 15px !important;
+        min-height: 48px;
+    }
+
+    /* Hero Banner Mobile Ergonomics */
+    .eatzy-hero-banner {
+        grid-template-columns: 1fr !important;
+        padding: 22px 16px !important;
+        gap: 20px !important;
+        border-radius: var(--eatzy-radius-md) !important;
+    }
+
+    .eatzy-hero-title {
+        font-size: clamp(26px, 7.5vw, 36px) !important;
+        letter-spacing: -1px !important;
+        margin-bottom: 12px !important;
+    }
+
+    .eatzy-hero-sub {
+        font-size: 13px !important;
+        line-height: 1.5 !important;
+        margin-bottom: 20px !important;
+    }
+
+    .eatzy-hero-ctas {
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 10px !important;
+    }
+
+    .eatzy-hero-ctas .eatzy-btn {
+        width: 100% !important;
+        justify-content: center !important;
+        padding: 14px 18px !important;
+        font-size: 13px !important;
+        min-height: 46px;
+    }
+
+    .eatzy-showcase-card {
+        width: 100% !important;
+    }
+
+    .eatzy-showcase-img-wrap {
+        height: 170px !important;
+    }
+
+    .eatzy-showcase-body {
+        padding: 14px 16px 16px 16px !important;
+    }
+
+    /* Dining Mode Tabs */
+    .eatzy-mode-tabs {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 3px !important;
+        gap: 4px !important;
+        margin-bottom: 20px !important;
+    }
+
+    .eatzy-mode-btn {
+        padding: 8px 6px !important;
+        font-size: 11px !important;
+        gap: 4px !important;
+    }
+
+    /* Kitchen Pulse Bar */
+    .eatzy-kitchen-pulse-bar {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 6px !important;
+        padding: 10px 14px !important;
+        border-radius: 12px !important;
+        margin-bottom: 16px !important;
+    }
+
+    /* Controls Bar & Horizontal Category Scrolling */
+    .eatzy-search-box {
+        padding: 8px 16px !important;
+        margin-bottom: 12px !important;
+    }
+
+    .eatzy-category-pills {
+        flex-wrap: wrap !important;
+        gap: 6px 8px !important;
+    }
+
+    .eatzy-cat-btn {
+        padding: 7px 13px !important;
+        font-size: 12px !important;
+    }
+
+    /* Payment Modal */
+    .eatzy-modal-overlay {
+        padding: 10px !important;
+        align-items: flex-end !important;
+    }
+
+    .eatzy-payment-dialog {
+        max-width: 100% !important;
+        border-radius: 20px 20px 0 0 !important;
+        max-height: 92vh !important;
+        overflow-y: auto !important;
+    }
+
+    .eatzy-gateway-header {
+        padding: 14px 18px !important;
+    }
+
+    .eatzy-gateway-body {
+        padding: 18px 14px !important;
+    }
+
+    .eatzy-amount-box {
+        padding: 12px !important;
+        margin-bottom: 12px !important;
+    }
+
+    .eatzy-amount-value {
+        font-size: 26px !important;
+    }
+
+    .eatzy-qr-mockup > div {
+        padding: 8px !important;
+    }
+
+    .eatzy-qr-mockup > div > div {
+        width: 120px !important;
+        height: 120px !important;
+    }
+
+    .eatzy-btn-approve {
+        padding: 14px !important;
+        font-size: 14px !important;
+        min-height: 48px;
+    }
+
+    /* Dynamic Island Toast */
+    .eatzy-sms-toast {
+        top: 10px !important;
+        width: calc(100vw - 20px) !important;
+        padding: 12px 14px !important;
+    }
+}
+
+/* Compact Mobile (Phones <= 480px) */
+@media (max-width: 480px) {
+    .eatzy-menu-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+    }
+
+    .eatzy-card-body {
+        padding: 10px 10px 12px 10px !important;
+    }
+
+    .eatzy-dish-title {
+        font-size: 13px !important;
+        line-height: 1.25 !important;
+    }
+
+    .eatzy-dish-price {
+        font-size: 14px !important;
+    }
+
+    .eatzy-dish-desc {
+        font-size: 11px !important;
+        line-height: 1.35 !important;
+        margin-bottom: 8px !important;
+        -webkit-line-clamp: 2 !important;
+    }
+
+    .eatzy-dish-tags {
+        display: none !important;
+    }
+
+    .eatzy-add-btn {
+        padding: 8px 10px !important;
+        font-size: 11px !important;
+        border-radius: var(--eatzy-radius-pill) !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+
+    .eatzy-inline-stepper {
+        padding: 2px 4px !important;
+    }
+
+    .eatzy-inline-stepper button {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 14px !important;
+    }
+
+    .eatzy-inline-qty {
+        font-size: 13px !important;
+        min-width: 22px !important;
+    }
+
+    /* Table Booking Mobile Layout */
+    .eatzy-booking-wrapper {
+        padding: 0 0 30px 0 !important;
+    }
+
+    .eatzy-booking-card {
+        padding: 18px 14px !important;
+        border-radius: var(--eatzy-radius-md) !important;
+    }
+
+    .eatzy-step-label {
+        font-size: 11px !important;
+        margin-bottom: 10px !important;
+    }
+
+    .eatzy-week-btn {
+        padding: 5px 10px !important;
+        font-size: 11px !important;
+    }
+
+    .eatzy-days-track {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 8px !important;
+        overflow: visible !important;
+        width: 100% !important;
+    }
+
+    .eatzy-days-track.hidden {
+        display: none !important;
+    }
+
+    .eatzy-day-card {
+        padding: 10px 4px !important;
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+
+    .eatzy-day-number {
+        font-size: 18px !important;
+    }
+
+    .eatzy-selected-day-banner {
+        font-size: 11px !important;
+        padding: 8px 12px !important;
+    }
+
+    .eatzy-guest-chip,
+    .eatzy-slot-chip {
+        padding: 8px 12px !important;
+        font-size: 12px !important;
+    }
+
+    .eatzy-zone-cards {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+
+    .eatzy-zone-card {
+        padding: 12px !important;
+    }
+
+    .eatzy-zone-info h4 {
+        font-size: 13px !important;
+    }
+
+    .eatzy-zone-info p {
+        font-size: 11px !important;
+    }
+
+    .eatzy-btn-large {
+        padding: 14px 18px !important;
+        font-size: 14px !important;
+        width: 100% !important;
+    }
+
+    .eatzy-success-code {
+        font-size: 26px !important;
+    }
+
+    .eatzy-ticket-details {
+        padding: 12px 14px !important;
+        font-size: 12px !important;
+    }
+
+    .eatzy-success-actions {
+        flex-direction: column !important;
+        width: 100% !important;
+    }
+
+    .eatzy-success-actions .eatzy-btn {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+
+    /* Live Order Tracker Mobile Layout */
+    .eatzy-tracker-wrapper {
+        padding: 0 0 30px 0 !important;
+    }
+
+    .eatzy-order-lookup-bar {
+        padding: 4px 6px 4px 12px !important;
+        margin-bottom: 14px !important;
+        border-radius: var(--eatzy-radius-pill) !important;
+        box-sizing: border-box !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+    }
+
+    .eatzy-lookup-form {
+        gap: 6px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .eatzy-lookup-input {
+        flex: 1 1 0% !important;
+        min-width: 0 !important;
+        width: 100% !important;
+        font-size: 13px !important;
+    }
+
+    .eatzy-lookup-btn {
+        padding: 7px 12px !important;
+        font-size: 11px !important;
+        flex-shrink: 0 !important;
+        white-space: nowrap !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 4px !important;
+    }
+
+    .eatzy-lookup-text-full {
+        display: none !important;
+    }
+
+    .eatzy-lookup-text-short {
+        display: inline !important;
+    }
+
+    .eatzy-tracker-order-id {
+        font-size: 28px !important;
+    }
+
+    .eatzy-eta-card {
+        padding: 16px 14px !important;
+        gap: 12px !important;
+        flex-direction: column !important;
+        margin: 16px 0 !important;
+    }
+
+    .eatzy-eta-icon {
+        width: 48px !important;
+        height: 48px !important;
+        font-size: 22px !important;
+    }
+
+    .eatzy-eta-time {
+        font-size: 22px !important;
+    }
+
+    .eatzy-eta-sub, .eatzy-eta-addr {
+        font-size: 12px !important;
+    }
+
+    .eatzy-stepper-card {
+        padding: 18px 14px !important;
+        margin-bottom: 16px !important;
+    }
+
+    .eatzy-step-node {
+        gap: 12px !important;
+    }
+
+    .eatzy-step-marker {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 11px !important;
+    }
+
+    .eatzy-step-text h4 {
+        font-size: 13px !important;
+    }
+
+    .eatzy-step-text p {
+        font-size: 11px !important;
+    }
+
+    .eatzy-tracker-breakdown {
+        padding: 16px 14px !important;
+    }
+
+    .eatzy-tracker-item-row {
+        padding: 8px 10px !important;
+        font-size: 12px !important;
+    }
+
+    .eatzy-item-title, .eatzy-item-price {
+        font-size: 12px !important;
+    }
+}
+
+/* Customer Simulation & Dynamic Order Tracker Extensions */
+.eatzy-sim-controls {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px dashed rgba(255, 255, 255, 0.18);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.eatzy-sim-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #e5e7eb;
+    padding: 8px 14px;
+    border-radius: var(--eatzy-radius-pill, 9999px);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    user-select: none;
+}
+
+.eatzy-sim-btn:hover {
+    background: rgba(255, 69, 0, 0.15);
+    border-color: var(--eatzy-primary, #ff4500);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+.eatzy-sim-btn.active {
+    background: var(--eatzy-primary, #ff4500);
+    border-color: var(--eatzy-primary, #ff4500);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(255, 69, 0, 0.4);
+}
+
+/* Recent Orders Device History Card */
+.eatzy-recent-order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 12px 14px;
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.eatzy-recent-order-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 69, 0, 0.4);
+    transform: translateX(4px);
+}
+
+/* Reservation Lookup Dynamic Result Card */
+.eatzy-res-result-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+    text-align: left;
+}
+
+.eatzy-res-result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Ultra-Compact Screens (e.g. Galaxy Fold folded 320px) */
+@media (max-width: 360px) {
+    .eatzy-days-track {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 6px !important;
+    }
+
+    .eatzy-menu-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .eatzy-mode-btn {
+        font-size: 10px !important;
+        padding: 6px 3px !important;
+    }
+
+    .eatzy-card-media {
+        aspect-ratio: 16/9 !important;
+    }
+
+    .eatzy-lookup-btn {
+        padding: 7px 10px !important;
+    }
+
+    .eatzy-lookup-text-short {
+        display: none !important;
+    }
+}

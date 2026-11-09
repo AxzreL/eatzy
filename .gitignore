@@ -1,0 +1,22 @@
+# Sensitive configuration
+configuration.php
+
+# Joomla Caches and Logs
+/cache/*
+!/cache/index.html
+/administrator/cache/*
+!/administrator/cache/index.html
+/administrator/logs/*
+!/administrator/logs/index.html
+/tmp/*
+!/tmp/index.html
+
+# Scratch & Dev Logs
+scratch/
+*.log
+.system_generated/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+desktop.ini

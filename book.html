@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <title>EATZY — Crave. Click. Chow. | Michelin Street-Tech Fast-Casual</title>
+    <meta name="description" content="Direct-to-diner fast-casual ordering and instant table reservations in Metro Manila. GCash & Maya supported.">
+    
+    <!-- Preconnect & Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Flaticon UIcons (Bold Rounded & All Styles) -->
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/2.6.0/uicons-bold-rounded/css/uicons-bold-rounded.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@flaticon/flaticon-uicons@3.3.1/css/all/all.min.css">
+
+    <!-- EATZY CSS -->
+    <link rel="stylesheet" href="components/com_eatzy/assets/css/eatzy.css?v=2.6.1">
+
+    <style>
+        /* Sticky Cyber Navigation */
+        .eatzy-site-nav {
+            position: sticky;
+            top: 0;
+            background: rgba(10, 11, 16, 0.88);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            z-index: 800;
+            padding: 12px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .eatzy-nav-inner {
+            max-width: 1240px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .eatzy-brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: -0.8px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .eatzy-brand-logo span {
+            color: var(--eatzy-primary);
+        }
+
+        .eatzy-brand-badge {
+            font-size: 9px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #d0d4e0;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-left: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .eatzy-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .eatzy-nav-link {
+            color: var(--eatzy-text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border-radius: 8px;
+        }
+
+        .eatzy-nav-link:hover, .eatzy-nav-link.active {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .eatzy-nav-cart-btn {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 8px 16px;
+            border-radius: var(--eatzy-radius-pill);
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .eatzy-nav-cart-btn:hover {
+            background: var(--eatzy-primary-gradient);
+            border-color: var(--eatzy-primary);
+            box-shadow: 0 4px 18px rgba(255, 69, 0, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .eatzy-cart-counter {
+            background: var(--eatzy-primary);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 900;
+            padding: 2px 7px;
+            border-radius: var(--eatzy-radius-pill);
+        }
+
+        .eatzy-main-content {
+            flex-grow: 1;
+        }
+
+        /* Mobile Top Header Bag Button */
+        .eatzy-mobile-top-cart-btn {
+            display: none;
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            padding: 7px 12px;
+            border-radius: var(--eatzy-radius-pill);
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .eatzy-mobile-top-cart-btn:hover {
+            background: rgba(255, 255, 255, 0.14);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Mobile Bottom Thumb-Zone Navigation Bar */
+        .eatzy-mobile-bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 11, 16, 0.96);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.6);
+            padding: 6px 12px calc(6px + env(safe-area-inset-bottom, 0px)) 12px;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .eatzy-bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            text-decoration: none;
+            background: none;
+            border: none;
+            color: #888ea0;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 6px 10px;
+            border-radius: 10px;
+            min-width: 58px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .eatzy-bottom-nav-item i {
+            font-size: 18px;
+            line-height: 1;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .eatzy-bottom-nav-item.active {
+            color: #ffffff;
+        }
+
+        .eatzy-bottom-nav-item.active i {
+            color: var(--eatzy-primary);
+            transform: translateY(-1px);
+        }
+
+        .eatzy-bottom-nav-item:active {
+            transform: scale(0.92);
+        }
+
+        .eatzy-bottom-cart-wrap {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .eatzy-bottom-cart-wrap .eatzy-cart-counter {
+            position: absolute;
+            top: -6px;
+            right: -10px;
+            font-size: 9px;
+            min-width: 16px;
+            height: 16px;
+            padding: 0 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+        }
+
+        /* Luxury Footer */
+        .eatzy-site-footer {
+            background: #090a0e;
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+            padding: 50px 20px 30px 20px;
+            margin-top: 80px;
+            font-size: 13px;
+            color: #7b8092;
+            position: relative;
+            z-index: 2;
+        }
+
+        .eatzy-footer-inner {
+            max-width: 1240px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 36px;
+            margin-bottom: 36px;
+        }
+
+        .eatzy-footer-col h4 {
+            color: #fff;
+            margin: 0 0 16px 0;
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .eatzy-footer-col p {
+            margin: 0 0 8px 0;
+            line-height: 1.6;
+        }
+
+        .eatzy-footer-bottom {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            font-size: 12px;
+        }
+
+        /* Responsive Breakpoints for Mobile Top Nav and Bottom Navigation */
+        @media (max-width: 768px) {
+            body {
+                padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px));
+            }
+
+            .eatzy-nav-links {
+                display: none !important;
+            }
+
+            .eatzy-mobile-top-cart-btn {
+                display: inline-flex !important;
+            }
+
+            .eatzy-mobile-bottom-nav {
+                display: flex !important;
+            }
+
+            .eatzy-site-nav {
+                padding: 10px 14px;
+            }
+
+            .eatzy-brand-logo {
+                font-size: 18px;
+            }
+
+            .eatzy-brand-badge {
+                font-size: 8px;
+                padding: 2px 5px;
+            }
+
+            .eatzy-site-footer {
+                padding: 36px 16px calc(40px + env(safe-area-inset-bottom, 0px)) 16px;
+                margin-top: 40px;
+            }
+
+            .eatzy-footer-inner {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .eatzy-footer-bottom {
+                flex-direction: column;
+                text-align: center;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sticky Navigation (Section 05 Mockup: [EATZY LOGO] [MENU] [CART]) -->
+    <nav class="eatzy-site-nav">
+        <div class="eatzy-nav-inner">
+            <a href="/EATZY/index.php/component/eatzy?view=menu" class="eatzy-brand-logo">
+                <i class="fi fi-br-utensils" style="font-size:18px; margin-right:4px; color:var(--eatzy-primary);"></i>
+                EATZY<span>.PH</span>
+                <span class="eatzy-brand-badge">BISTRO TECH</span>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <div class="eatzy-nav-links">
+                <a href="/EATZY/index.php/component/eatzy?view=menu" class="eatzy-nav-link ">
+                    <i class="fi fi-br-hamburger"></i> <span>Menu</span>
+                </a>
+                <a href="/EATZY/index.php/component/eatzy?view=book" class="eatzy-nav-link active">
+                    <i class="fi fi-br-calendar"></i> <span>Book Table</span>
+                </a>
+                <a href="/EATZY/index.php/component/eatzy?view=track" class="eatzy-nav-link ">
+                    <i class="fi fi-br-moped"></i> <span>Track Order</span>
+                </a>
+                <a href="/EATZY/administrator/index.php?option=com_eatzy&view=kds" class="eatzy-nav-link" target="_blank">
+                    <i class="fi fi-br-hat-chef"></i> <span>Kitchen Display</span>
+                </a>
+                <button class="eatzy-nav-cart-btn" onclick="EatzyApp.toggleCart(true)" aria-label="Open Cart">
+                    <i class="fi fi-br-shopping-bag"></i>
+                    <span id="eatzy-nav-cart-badge" class="eatzy-cart-counter">0</span>
+                </button>
+            </div>
+
+            <!-- Mobile Top Header Quick Bag -->
+            <button class="eatzy-mobile-top-cart-btn" onclick="EatzyApp.toggleCart(true)" aria-label="Open Cart">
+                <i class="fi fi-br-shopping-bag"></i>
+                <span id="eatzy-mobile-top-cart-badge" class="eatzy-cart-counter">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Component Render -->
+    <main class="eatzy-main-content">
+        <div id="system-message-container" aria-live="polite"></div>
+
+        
+<div class="eatzy-app-container">
+    <div class="eatzy-booking-wrapper">
+        <header class="eatzy-page-header">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
+                <a href="/EATZY/index.php/component/eatzy?view=menu" class="eatzy-back-link" style="margin-bottom:0;"><i class="fi fi-br-arrow-left" style="margin-right:6px;"></i> Back to Food Menu</a>
+                <button type="button" class="eatzy-pill" style="cursor:pointer; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18); color:#fff;" onclick="EatzyBooking.toggleLookup()">
+                    <i class="fi fi-br-search" style="margin-right:4px;"></i> Find My Reservation
+                </button>
+            </div>
+            <h1 class="eatzy-page-title">Reserve Your Table at EATZY</h1>
+            <p class="eatzy-page-sub">Guaranteed seating without waiting in line. Choose your preferred dining time and ambiance.</p>
+        </header>
+
+        <!-- Existing Reservation Lookup Modal / Card -->
+        <div class="eatzy-booking-card" id="eatzy-res-lookup-card" style="display:none; margin-bottom:20px; border-color:var(--eatzy-primary);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <h3 style="margin:0; font-size:16px; color:#fff;"><i class="fi fi-br-search" style="margin-right:6px; color:var(--eatzy-primary);"></i> Look Up Existing Reservation</h3>
+                <button type="button" style="background:none; border:none; color:#888ea0; font-size:16px; cursor:pointer;" onclick="EatzyBooking.toggleLookup()">&times;</button>
+            </div>
+            <p style="font-size:12px; color:#888ea0; margin:0 0 14px 0;">Enter your reservation confirmation code or mobile phone number.</p>
+            <form onsubmit="EatzyBooking.lookup(event)" style="display:flex; gap:8px; flex-wrap:wrap;">
+                <input type="text" id="res-lookup-input" class="eatzy-input" placeholder="e.g. EATZ-RES-7712 or 09XXXXXXXXX" style="flex:1; min-width:180px;">
+                <button type="submit" class="eatzy-btn eatzy-btn-primary" style="padding:10px 18px; white-space:nowrap;">Check Table</button>
+            </form>
+            <div id="res-lookup-result" style="margin-top:14px; display:none;"></div>
+        </div>
+
+        <div class="eatzy-booking-card" id="eatzy-booking-form-wrap">
+            <form id="eatzy-booking-form" onsubmit="EatzyBooking.submit(event)">
+                <!-- 1. Party Size -->
+                <div class="eatzy-book-step">
+                    <label class="eatzy-step-label">1. Party Size (Number of Guests)</label>
+                    <div class="eatzy-guest-selector">
+                                                    <button type="button" class="eatzy-guest-chip " 
+                                    data-size="1" 
+                                    onclick="EatzyBooking.setSize(1, this)">
+                                1 Guest                            </button>
+                                                    <button type="button" class="eatzy-guest-chip active" 
+                                    data-size="2" 
+                                    onclick="EatzyBooking.setSize(2, this)">
+                                2 Guests                            </button>
+                                                    <button type="button" class="eatzy-guest-chip " 
+                                    data-size="4" 
+                                    onclick="EatzyBooking.setSize(4, this)">
+                                4 Guests                            </button>
+                                                    <button type="button" class="eatzy-guest-chip " 
+                                    data-size="6" 
+                                    onclick="EatzyBooking.setSize(6, this)">
+                                6 Guests                            </button>
+                                                    <button type="button" class="eatzy-guest-chip " 
+                                    data-size="8" 
+                                    onclick="EatzyBooking.setSize(8, this)">
+                                8 Guests                            </button>
+                                                    <button type="button" class="eatzy-guest-chip " 
+                                    data-size="10" 
+                                    onclick="EatzyBooking.setSize(10, this)">
+                                10 Guests                            </button>
+                                                    <button type="button" class="eatzy-guest-chip " 
+                                    data-size="12" 
+                                    onclick="EatzyBooking.setSize(12, this)">
+                                12 Guests                            </button>
+                                            </div>
+                    <input type="hidden" id="book-party-size" value="2">
+                </div>
+
+                <!-- 2. Dining Date: Future Day & Week Selector (Month Excluded) -->
+                <div class="eatzy-book-step">
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+                        <label class="eatzy-step-label" style="margin-bottom:0;">
+                            <i class="fi fi-br-calendar" style="color:var(--eatzy-primary); margin-right:6px;"></i> 2. Choose Dining Day &amp; Week
+                        </label>
+                        
+                        <!-- Week Selector Toggle -->
+                        <div class="eatzy-week-toggle">
+                            <button type="button" class="eatzy-week-btn active" id="btn-week-this" onclick="EatzyBooking.setWeek('this', this)">
+                                <i class="fi fi-br-calendar-days" style="margin-right:4px;"></i> This Week
+                            </button>
+                            <button type="button" class="eatzy-week-btn" id="btn-week-next" onclick="EatzyBooking.setWeek('next', this)">
+                                <i class="fi fi-br-forward" style="margin-right:4px;"></i> Next Week
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- This Week Days Track -->
+                    <div id="eatzy-week-this" class="eatzy-days-track">
+                                                    <button type="button" 
+                                    class="eatzy-day-card active" 
+                                    data-date="2026-11-09" 
+                                    onclick="EatzyBooking.setDate('2026-11-09', this, 'Today (Monday)')">
+                                <span class="eatzy-day-badge">Today</span>
+                                <span class="eatzy-day-number">09</span>
+                                <span class="eatzy-day-name">Mon</span>
+                                <span class="eatzy-day-status"><span class="eatzy-dot"></span> Open</span>
+                            </button>
+                                                    <button type="button" 
+                                    class="eatzy-day-card " 
+                                    data-date="2026-11-10" 
+                                    onclick="EatzyBooking.setDate('2026-11-10', this, 'Tomorrow (Tuesday)')">
+                                <span class="eatzy-day-badge">Tmrw</span>
+                                <span class="eatzy-day-number">10</span>
+                                <span class="eatzy-day-name">Tue</span>
+                                <span class="eatzy-day-status"><span class="eatzy-dot"></span> Open</span>
+                            </button>
+                                                    <button type="button" 
+                                    class="eatzy-day-card " 
+                                    data-date="2026-11-11" 
+                                    onclick="EatzyBooking.setDate('2026-11-11', this, 'Wednesday')">
+                                <span class="eatzy-day-badge">Wed</span>
+                                <span class="eatzy-day-number">11</span>
+                                <span class="eatzy-day-name">Wed</span>
+                                <span class="eatzy-day-status"><span class="eatzy-dot"></span> Open</span>
+                            </button>
+                                                    <button type="button" 
+                                    class="eatzy-day-card " 
+                                    data-date="2026-11-12" 
+                                    onclick="EatzyBooking.setDate('2026-11-12', this, 'Thursday')">
+                                <span class="eatzy-day-badge">Thu</span>
+                                <span class="eatzy-day-number">12</span>
+                                <span class="eatzy-day-name">Thu</span>
+                                <span class="eatzy-day-status"><span class="eatzy-dot"></span> Open</span>
+                            </button>
+                                                    <button type="button" 
+                                    class="eatzy-day-card " 
+                                    data-date="2026-11-13" 
+                                    onclick="EatzyBooking.setDate('2026-11-13', this, 'Friday')">
+                                <span class="eatzy-day-badge">Fri</span>
+                                <span class="eatzy-day-number">13</span>
+                                <span class="eatzy-day-name">Fri</span>
+                                <span class="eatzy-day-status"><span class="eatzy-dot"></span> Open</span>
+                            </button>
+                                                    <button type="button" 
+                                    class="eatzy-day-card " 
+                                    data-date="2026-11-14" 
+                                    onclick="EatzyBooking.setDate('2026-11-14', this, 'Saturday')">
+                                <span class="eatzy-day-badge">Sat</span>
+                                <span class="eatzy-day-number">14</span>
+                                <span class="eatzy-day-name">Sat</span>
+                                <span class="eatzy-day-status"><span class="eatzy-dot"></span> Open</span>
+                            </button>
+                                                    <button type="button" 
+                                    class="eatzy-day-card " 
+                                    data-date="2026-11-15" 
+                                    onclick="EatzyBooking.setDate('2026-11-15', this, 'Sunday')">
+                                <span class="eatzy-day-badge">Sun</span>
+                                <span class="eatzy-day-number">15</span>
+                                <span class="eatzy-day-name">Sun</span>
+                                <span class="eatzy-day-status"><span class="eatzy-dot"></span> Open</span>
+                            </button>
+                                            </div>
+
+                    <!-- Next Week Days Track -->
+                    <div id="eatzy-week-next" class="eatzy-days-track hidden" style="display:none;">
+                                                    <button type="button" 
+                                    class="eatzy-day-card" 
+                                    data-date="2026-11-16" 
+                                    onclick="EatzyBooking.setDate('2026-11-16', this, 'Next Monday')">
+                                <span class="eatzy-day-badge">Mon</span>
+                                <span class="eatzy-day-number">16</span>
+                                <span class="eatzy-day-name">Mon</span>
+                                <span class="eatzy-day-status"><span class="eatzy-dot"></span> Open</span>
+                            </button>
+                                                    <button type="button" 
+                                    class="eatzy-day-card" 
+                                    data-date="2026-11-17" 
+                                    onclick="EatzyBooking.setDate('2026-11-17', this, 'Next Tuesday')">
+                                <span class="eatzy-day-badge">Tue</span>
+                                <span class="eatzy-day-number">17</span>
+                                <span class="eatzy-day-name">Tue</span>
+                                <span class="eatzy-day-status"><span class="eatzy-dot"></span> Open</span>
+                            </button>
+                                                    <button type="button" 
+                                    class="eatzy-day-card" 
+                                    data-date="2026-11-18" 
+                                    onclick="EatzyBooking.setDate('2026-11-18', this, 'Next Wednesday')">
+                                <span class="eatzy-day-badge">Wed</span>
+                                <span class="eatzy-day-number">18</span>
+                                <span class="eatzy-day-name">Wed</span>
+                                <span class="eatzy-day-status"><span class="eatzy-dot"></span> Open</span>
+                            </button>
+                                                    <button type="button" 
+                                    class="eatzy-day-card" 
+                                    data-date="2026-11-19" 
+                                    onclick="EatzyBooking.setDate('2026-11-19', this, 'Next Thursday')">
+                                <span class="eatzy-day-badge">Thu</span>
+                                <span class="eatzy-day-number">19</span>
+                                <span class="eatzy-day-name">Thu</span>
+                                <span class="eatzy-day-status"><span class="eatzy-dot"></span> Open</span>
+                            </button>
+                                                    <button type="button" 
+                                    class="eatzy-day-card" 
+                                    data-date="2026-11-20" 
+                                    onclick="EatzyBooking.setDate('2026-11-20', this, 'Next Friday')">
+                                <span class="eatzy-day-badge">Fri</span>
+                                <span class="eatzy-day-number">20</span>
+                                <span class="eatzy-day-name">Fri</span>
+                                <span class="eatzy-day-status"><span class="eatzy-dot"></span> Open</span>
+                            </button>
+                                                    <button type="button" 
+                                    class="eatzy-day-card" 
+                                    data-date="2026-11-21" 
+                                    onclick="EatzyBooking.setDate('2026-11-21', this, 'Next Saturday')">
+                                <span class="eatzy-day-badge">Sat</span>
+                                <span class="eatzy-day-number">21</span>
+                                <span class="eatzy-day-name">Sat</span>
+                                <span class="eatzy-day-status"><span class="eatzy-dot"></span> Open</span>
+                            </button>
+                                                    <button type="button" 
+                                    class="eatzy-day-card" 
+                                    data-date="2026-11-22" 
+                                    onclick="EatzyBooking.setDate('2026-11-22', this, 'Next Sunday')">
+                                <span class="eatzy-day-badge">Sun</span>
+                                <span class="eatzy-day-number">22</span>
+                                <span class="eatzy-day-name">Sun</span>
+                                <span class="eatzy-day-status"><span class="eatzy-dot"></span> Open</span>
+                            </button>
+                                            </div>
+
+                    <input type="hidden" id="book-date" value="2026-11-09">
+
+                    <!-- Selected Day Summary Feedback -->
+                    <div class="eatzy-selected-day-banner" id="eatzy-selected-date-text">
+                        <i class="fi fi-br-check-circle" style="color:var(--eatzy-mint); margin-right:6px; font-size:14px;"></i>
+                        <span>Selected Day: <strong>Today (Monday)</strong> &bull; Priority Table Slot Guaranteed</span>
+                    </div>
+                </div>
+
+                <!-- 3. Time Slots -->
+                <div class="eatzy-book-step">
+                    <label class="eatzy-step-label">3. Time Slot</label>
+                    
+                    <div class="eatzy-slot-group">
+                        <h4 class="eatzy-slot-heading"><i class="fi fi-br-sun" style="margin-right:6px; font-size:12px;"></i> Lunch Service (11:30 AM – 2:30 PM)</h4>
+                        <div class="eatzy-slot-chips">
+                                                            <button type="button" class="eatzy-slot-chip" data-slot="11:30 AM" onclick="EatzyBooking.setSlot('11:30 AM', this)">
+                                    11:30 AM                                </button>
+                                                            <button type="button" class="eatzy-slot-chip" data-slot="12:15 PM" onclick="EatzyBooking.setSlot('12:15 PM', this)">
+                                    12:15 PM                                </button>
+                                                            <button type="button" class="eatzy-slot-chip" data-slot="1:00 PM" onclick="EatzyBooking.setSlot('1:00 PM', this)">
+                                    1:00 PM                                </button>
+                                                            <button type="button" class="eatzy-slot-chip" data-slot="1:45 PM" onclick="EatzyBooking.setSlot('1:45 PM', this)">
+                                    1:45 PM                                </button>
+                                                    </div>
+                    </div>
+
+                    <div class="eatzy-slot-group">
+                        <h4 class="eatzy-slot-heading"><i class="fi fi-br-moon" style="margin-right:6px; font-size:12px;"></i> Dinner Service (5:30 PM – 10:00 PM)</h4>
+                        <div class="eatzy-slot-chips">
+                                                            <button type="button" class="eatzy-slot-chip " data-slot="5:30 PM" onclick="EatzyBooking.setSlot('5:30 PM', this)">
+                                    5:30 PM                                </button>
+                                                            <button type="button" class="eatzy-slot-chip " data-slot="6:15 PM" onclick="EatzyBooking.setSlot('6:15 PM', this)">
+                                    6:15 PM                                </button>
+                                                            <button type="button" class="eatzy-slot-chip active" data-slot="7:00 PM" onclick="EatzyBooking.setSlot('7:00 PM', this)">
+                                    7:00 PM                                </button>
+                                                            <button type="button" class="eatzy-slot-chip " data-slot="7:45 PM" onclick="EatzyBooking.setSlot('7:45 PM', this)">
+                                    7:45 PM                                </button>
+                                                            <button type="button" class="eatzy-slot-chip " data-slot="8:30 PM" onclick="EatzyBooking.setSlot('8:30 PM', this)">
+                                    8:30 PM                                </button>
+                                                            <button type="button" class="eatzy-slot-chip " data-slot="9:15 PM" onclick="EatzyBooking.setSlot('9:15 PM', this)">
+                                    9:15 PM                                </button>
+                                                    </div>
+                    </div>
+                    <input type="hidden" id="book-time-slot" value="7:00 PM">
+                </div>
+
+                <!-- 4. Seating Zone -->
+                <div class="eatzy-book-step">
+                    <label class="eatzy-step-label">4. Seating Zone Preference</label>
+                    <div class="eatzy-zone-cards">
+                                                    <div class="eatzy-zone-card active" 
+                                 onclick="EatzyBooking.setZone('Indoor Main Dining', this)">
+                                <div class="eatzy-zone-icon"><i class="fi fi-br-snowflake"></i></div>
+                                <div class="eatzy-zone-info">
+                                    <h4>Indoor Main Dining</h4>
+                                    <p>Air-conditioned dining lounge with cozy banquette seating.</p>
+                                </div>
+                            </div>
+                                                    <div class="eatzy-zone-card " 
+                                 onclick="EatzyBooking.setZone('Al Fresco Garden Patio', this)">
+                                <div class="eatzy-zone-icon"><i class="fi fi-br-leaf"></i></div>
+                                <div class="eatzy-zone-info">
+                                    <h4>Al Fresco Garden Patio</h4>
+                                    <p>Open-air courtyard patio surrounded by lush ambient lighting.</p>
+                                </div>
+                            </div>
+                                            </div>
+                    <input type="hidden" id="book-zone" value="Indoor Main Dining">
+                </div>
+
+                <!-- 5. Guest Information -->
+                <div class="eatzy-book-step">
+                    <label class="eatzy-step-label">5. Guest Contact Information</label>
+                    <div class="eatzy-form-grid">
+                        <div class="eatzy-form-group">
+                            <label>Full Name *</label>
+                            <input type="text" id="book-name" class="eatzy-input" placeholder="Enter your full name" required autocomplete="name">
+                        </div>
+                        <div class="eatzy-form-group">
+                            <label>Mobile Number (for SMS Confirmation) *</label>
+                            <input type="tel" id="book-phone" class="eatzy-input" placeholder="09XXXXXXXXX (11 digits)" maxlength="11" required autocomplete="tel">
+                        </div>
+                    </div>
+                    <div class="eatzy-form-group" style="margin-top:12px;">
+                        <label>Special Requests (Anniversary, Birthday, High Chair, etc.)</label>
+                        <input type="text" id="book-notes" class="eatzy-input" placeholder="Optional notes for our host">
+                    </div>
+                </div>
+
+                <div class="eatzy-book-footer">
+                    <button type="submit" class="eatzy-btn eatzy-btn-primary eatzy-btn-large" id="eatzy-book-submit-btn">
+                        <span>Confirm Table Booking</span> <i class="fi fi-br-arrow-right" style="margin-left:6px; font-size:12px;"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Success Confirmation Card -->
+        <div class="eatzy-booking-success" id="eatzy-booking-success" style="display:none;">
+            <div class="eatzy-success-badge"><i class="fi fi-br-check" style="margin-right:6px;"></i> RESERVATION CONFIRMED</div>
+            <h2 class="eatzy-success-code" id="eatzy-res-code">EATZ-RES-XXXX</h2>
+            <p class="eatzy-success-msg">A confirmation code has been generated and dispatched via automated SMS tracking.</p>
+            
+            <div class="eatzy-ticket-details">
+                <div class="eatzy-ticket-row">
+                    <span>Guest:</span>
+                    <strong id="res-confirm-name">-</strong>
+                </div>
+                <div class="eatzy-ticket-row">
+                    <span>Date &amp; Time:</span>
+                    <strong id="res-confirm-time">-</strong>
+                </div>
+                <div class="eatzy-ticket-row">
+                    <span>Party:</span>
+                    <strong id="res-confirm-party">-</strong>
+                </div>
+                <div class="eatzy-ticket-row">
+                    <span>Zone:</span>
+                    <strong id="res-confirm-zone">-</strong>
+                </div>
+            </div>
+
+            <div class="eatzy-success-actions">
+                <a href="/EATZY/index.php/component/eatzy?view=menu" class="eatzy-btn eatzy-btn-primary">Browse Food Menu</a>
+                <button type="button" class="eatzy-btn eatzy-btn-outline" onclick="location.reload()">Book Another Table</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="eatzy-site-footer">
+        <div class="eatzy-footer-inner">
+            <div class="eatzy-footer-col">
+                <h4 style="color:var(--eatzy-primary);">EATZY PHILIPPINES</h4>
+                <p>An ultra-modern fast-casual food tech platform engineered for direct delivery ordering, instant guest checkout, and frictionless table bookings.</p>
+                <p style="color:#d0d4e0; font-weight:700;"><i class="fi fi-br-badge-check" style="margin-right:6px; color:var(--eatzy-mint);"></i>100% Zero Aggregator Markups</p>
+            </div>
+            <div class="eatzy-footer-col">
+                <h4>Hours of Service</h4>
+                <p><i class="fi fi-br-clock" style="margin-right:6px; font-size:12px;"></i>Lunch Service: 11:30 AM – 2:30 PM</p>
+                <p><i class="fi fi-br-clock" style="margin-right:6px; font-size:12px;"></i>Dinner Service: 5:30 PM – 10:00 PM</p>
+                <p><i class="fi fi-br-moped" style="margin-right:6px; font-size:12px;"></i>Express Delivery: Daily 11:00 AM – 9:30 PM</p>
+            </div>
+            <div class="eatzy-footer-col">
+                <h4>BGC Flagship Location</h4>
+                <p><i class="fi fi-br-marker" style="margin-right:6px; font-size:12px;"></i>High Street South Block, 26th Street,</p>
+                <p>Bonifacio Global City, Taguig, Metro Manila</p>
+                <p><i class="fi fi-br-phone-call" style="margin-right:6px; font-size:12px;"></i>Direct Hotlines: (02) 8829-EATZ &bull; 0917-882-9101</p>
+            </div>
+            <div class="eatzy-footer-col">
+                <h4>Financial Security &amp; Webhooks</h4>
+                <p><i class="fi fi-br-shield-check" style="margin-right:6px; font-size:12px;"></i>256-bit TLS End-to-End Encryption</p>
+                <p><i class="fi fi-br-check" style="margin-right:6px; font-size:12px;"></i>GCash Direct Webhook Clearance</p>
+                <p><i class="fi fi-br-check" style="margin-right:6px; font-size:12px;"></i>Maya e-Wallet &amp; Card Processing</p>
+                <p>Domain: <code style="color:var(--eatzy-primary);">eatzy.ph</code></p>
+            </div>
+        </div>
+        <div class="eatzy-footer-bottom">
+            <span>&copy; 2026 EATZY Philippines Inc. Built natively on Joomla 6.</span>
+            <span>Michelin Street-Tech UX &bull; WCAG 2.1 AA Compliant &bull; Ultra-Fast PWA</span>
+        </div>
+    </footer>
+
+    <!-- Mobile Bottom Thumb-Zone Navigation Bar -->
+    <nav class="eatzy-mobile-bottom-nav" aria-label="Mobile Navigation">
+        <a href="/EATZY/index.php/component/eatzy?view=menu" class="eatzy-bottom-nav-item ">
+            <i class="fi fi-br-hamburger"></i>
+            <span>Menu</span>
+        </a>
+        <a href="/EATZY/index.php/component/eatzy?view=book" class="eatzy-bottom-nav-item active">
+            <i class="fi fi-br-calendar"></i>
+            <span>Book</span>
+        </a>
+        <a href="/EATZY/index.php/component/eatzy?view=track" class="eatzy-bottom-nav-item ">
+            <i class="fi fi-br-moped"></i>
+            <span>Track</span>
+        </a>
+        <button type="button" class="eatzy-bottom-nav-item" onclick="EatzyApp.toggleCart(true)">
+            <div class="eatzy-bottom-cart-wrap">
+                <i class="fi fi-br-shopping-bag"></i>
+                <span id="eatzy-bottom-cart-badge" class="eatzy-cart-counter">0</span>
+            </div>
+            <span>Bag</span>
+        </button>
+    </nav>
+
+    <!-- Dynamic Island Carrier SMS Notification (Global) -->
+    <div class="eatzy-sms-toast" id="eatzy-sms-toast" style="display:none;">
+        <div class="eatzy-sms-header">
+            <span>GLOBE TELECOM &bull; INSTANT DISPATCH</span>
+            <span>Just Now</span>
+        </div>
+        <p class="eatzy-sms-body" id="eatzy-sms-body">
+            EATZY: Order confirmed and kitchen notified.
+        </p>
+    </div>
+
+    <!-- Client-side Scripts -->
+    <script src="components/com_eatzy/assets/js/eatzy.js?v=2.6.0"></script>
+    <script src="components/com_eatzy/assets/js/booking.js?v=2.6.0"></script>
+</body>
+</html>

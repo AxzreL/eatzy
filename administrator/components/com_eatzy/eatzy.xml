@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="component" method="upgrade">
+    <name>com_eatzy</name>
+    <author>EATZY Philippines</author>
+    <creationDate>2026-11</creationDate>
+    <copyright>(C) 2026 EATZY. All rights reserved.</copyright>
+    <license>GPL-2.0-or-later</license>
+    <authorEmail>tech@eatzy.ph</authorEmail>
+    <authorUrl>https://eatzy.ph</authorUrl>
+    <version>1.0.0</version>
+    <description>EATZY Food Tech System - Direct Ordering, Express Cart, Table Booking Engine &amp; Kitchen Display System.</description>
+    <namespace path="src">Eatzy\Component\Eatzy</namespace>
+
+    <install>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+        </sql>
+    </install>
+    <uninstall>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+        </sql>
+    </uninstall>
+
+    <files folder="site">
+        <folder>src</folder>
+        <folder>tmpl</folder>
+        <folder>services</folder>
+        <folder>assets</folder>
+    </files>
+
+    <media destination="com_eatzy" folder="media">
+        <folder>css</folder>
+        <folder>js</folder>
+        <folder>images</folder>
+    </media>
+
+    <administration>
+        <menu img="class:shopping-cart">EATZY Restaurant</menu>
+        <submenu>
+            <menu link="option=com_eatzy&amp;view=kds" view="kds" img="class:tv">Kitchen Display (KDS)</menu>
+            <menu link="option=com_eatzy&amp;view=reservations" view="reservations" img="class:calendar">Table Reservations</menu>
+            <menu link="option=com_eatzy&amp;view=menu" view="menu" img="class:list">Menu Catalog</menu>
+            <menu link="option=com_eatzy&amp;view=orders" view="orders" img="class:tag">Customer Orders</menu>
+        </submenu>
+        <files folder="administrator">
+            <folder>services</folder>
+            <folder>src</folder>
+            <folder>tmpl</folder>
+            <folder>sql</folder>
+        </files>
+    </administration>
+</extension>
+
