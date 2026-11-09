@@ -595,22 +595,119 @@ const EatzyApp = (function() {
             } catch (e) {}
         }
 
-        // 2. Active order tracking live polling
+        // 2. Active order tracking live hydration & polling
         const trackerWrap = document.querySelector('.eatzy-tracker-wrapper[data-order-number]');
         if (trackerWrap) {
-            const orderNumber = trackerWrap.getAttribute('data-order-number');
-            const currentStatus = trackerWrap.getAttribute('data-order-status');
+            // Check if URL has ?id=...
+            const urlParams = new URLSearchParams(window.location.search);
+            let activeOrderNumber = urlParams.get('id');
+
+            // If no ID in URL, check if diner has a recent order in localStorage
+            if (!activeOrderNumber) {
+                try {
+                    const myOrders = JSON.parse(localStorage.getItem('eatzy_my_orders') || '[]');
+                    if (myOrders.length > 0 && myOrders[0].order_number) {
+                        activeOrderNumber = myOrders[0].order_number;
+                    }
+                } catch (e) {}
+            }
+
+            if (activeOrderNumber) {
+                activeOrderNumber = activeOrderNumber.trim().toUpperCase();
+                trackerWrap.setAttribute('data-order-number', activeOrderNumber);
+
+                // Update lookup input
+                const lookupInput = document.querySelector('.eatzy-lookup-input');
+                if (lookupInput) lookupInput.value = activeOrderNumber;
+
+                // Update title
+                const titleEl = document.querySelector('.eatzy-tracker-order-id');
+                if (titleEl) titleEl.innerText = activeOrderNumber;
+
+                // Check localStorage for saved order payload
+                try {
+                    let orderData = null;
+                    const savedStr = localStorage.getItem('eatzy_order_' + activeOrderNumber);
+                    if (savedStr) {
+                        orderData = JSON.parse(savedStr);
+                    } else {
+                        const myOrders = JSON.parse(localStorage.getItem('eatzy_my_orders') || '[]');
+                        orderData = myOrders.find(o => o.order_number === activeOrderNumber);
+                    }
+
+                    if (orderData) {
+                        // Hydrate status
+                        if (orderData.order_status) {
+                            applyStatusToDOM(orderData.order_status);
+                        }
+
+                        // Hydrate ETA card customer info if available
+                        const etaSub = document.querySelector('.eatzy-eta-sub');
+                        if (etaSub && orderData.customer_name) {
+                            etaSub.innerHTML = `Delivering to: <strong>${escapeHtml(orderData.customer_name)}</strong> &bull; ${escapeHtml(orderData.customer_phone || '')}`;
+                        }
+                        const etaAddr = document.querySelector('.eatzy-eta-addr');
+                        if (etaAddr && orderData.delivery_address) {
+                            etaAddr.innerText = orderData.delivery_address;
+                        }
+
+                        // Hydrate items if available
+                        const itemsWrap = document.querySelector('.eatzy-tracker-items');
+                        if (itemsWrap && Array.isArray(orderData.items) && orderData.items.length > 0) {
+                            itemsWrap.innerHTML = orderData.items.map(item => `
+                                <div class="eatzy-tracker-item-row">
+                                    <div class="eatzy-tracker-item-info">
+                                        <span class="eatzy-item-qty">${item.quantity}x</span>
+                                        <span class="eatzy-item-title">${escapeHtml(item.title)}</span>
+                                    </div>
+                                    <span class="eatzy-item-price">₱${parseFloat(item.price * item.quantity).toFixed(2)}</span>
+                                </div>
+                            `).join('');
+                        }
+
+                        // Hydrate total
+                        const finalTotal = document.querySelector('.eatzy-final-total span:last-child');
+                        if (finalTotal && orderData.total) {
+                            finalTotal.innerText = `₱${parseFloat(orderData.total).toFixed(2)}`;
+                        }
+
+                        // Hydrate payment method
+                        const payRef = document.querySelector('.eatzy-txn-ref code');
+                        if (payRef && orderData.transaction_ref) {
+                            payRef.innerText = orderData.transaction_ref;
+                        }
+                    }
+                } catch (e) {}
+            }
+
+            const currentStatus = trackerWrap.getAttribute('data-order-status') || 'Kitchen Preparing';
             highlightActiveSimBtn(currentStatus);
 
-            if (orderNumber) {
+            const resolvedOrderNumber = trackerWrap.getAttribute('data-order-number');
+            if (resolvedOrderNumber) {
                 if (trackerPollInterval) clearInterval(trackerPollInterval);
                 trackerPollInterval = setInterval(() => {
-                    pollOrderStatus(orderNumber);
+                    pollOrderStatus(resolvedOrderNumber);
                 }, 4000);
             }
         }
 
-        // 3. Countdown timer
+        // 3. Setup client-side search lookup form listener
+        const lookupForm = document.querySelector('.eatzy-lookup-form');
+        if (lookupForm) {
+            lookupForm.addEventListener('submit', function(e) {
+                const input = lookupForm.querySelector('.eatzy-lookup-input');
+                if (input && input.value.trim()) {
+                    const ticketCode = input.value.trim().toUpperCase();
+                    if (!window.location.search.includes('option=com_eatzy')) {
+                        e.preventDefault();
+                        window.location.href = `track.html?id=${encodeURIComponent(ticketCode)}`;
+                    }
+                }
+            });
+        }
+
+        // 4. Countdown timer
         const el = document.getElementById('eatzy-eta-countdown');
         if (!el) return;
         let mins = 21;
